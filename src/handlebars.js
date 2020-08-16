@@ -32,6 +32,22 @@ module.exports = function() {
     return new Handlebars.SafeString(navHtml);
   });
 
+  Handlebars.registerHelper("publisherList", function(publishers) {
+    var navHtml = "";
+
+    for (var i=0; i<publishers.length; i+=1) {
+      var publisher = publishers[i];
+
+      navHtml += "<tr>";
+      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + publisher.name + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + publisher.zones.length + " </td>";
+      navHtml += "</tr>"
+    }
+
+    return new Handlebars.SafeString(navHtml);
+  });
+
   Handlebars.registerHelper("advertisersAndCampaigns", function(advertisers) {
     var navHtml = "<ul class='uk-nav-sub'>";
 

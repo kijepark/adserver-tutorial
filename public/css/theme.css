@@ -558,3 +558,11 @@ template {
   color: inherit;
   text-decoration: none
 }
+
+.uk-table th {
+  font-size: .675rem;
+}
+
+.uk-table tr td {
+  font-size: 14px;
+}
