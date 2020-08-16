@@ -47,7 +47,8 @@ mongoose.connect(databaseUri, databaseOptions, async function(error) {
 
 // Set Template Engine
 app.engine("handlebars", expressHandlebars({
-  layoutsDir: __dirname + "/../views/layouts/"
+  layoutsDir: __dirname + "/../views/layouts/",
+  partialsDir: __dirname + "/../views"
 }));
 app.set("view engine", "handlebars");
 
