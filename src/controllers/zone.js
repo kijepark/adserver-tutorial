@@ -13,6 +13,28 @@ module.exports = {
       });
     });
   },
+  listAndPlacements: function(query) {
+    return new Promise(function(resolve, reject) {
+      Zone.aggregate([
+        { $match: query },
+        {
+          $lookup: {
+            from: "placements",
+            localField: "id",
+            foreignField: "zone.id",
+            as: "placements"
+          }
+        }
+      ])
+      .then(function(res) {
+        if (res) console.log({ query }, "Lists Zones and its Placements");
+        return resolve(res);
+      })
+      .catch(function(error) {
+        return reject(error);
+      });
+    });
+  },
   retrieve: function(query) {
     return new Promise(function(resolve, reject) {
       Zone.findOne(query).lean().exec()

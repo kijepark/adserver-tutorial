@@ -58,7 +58,7 @@ module.exports = function() {
       navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       navHtml += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
       navHtml += "  <td class='uk-text-nowrap'> " + (zone.width + "x" + zone.height) + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + zone.placements.length + " </td>";
       navHtml += "</tr>"
     }
 

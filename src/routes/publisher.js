@@ -27,7 +27,7 @@ router.get("/publisher/view", async function(req, res, next) {
 
     var publisherID = parseInt(req.query.publisher_id);
     var publisher = await Publisher.retrieve({ id: publisherID });
-    var zones = await Zone.list({ publisher: publisherID });
+    var zones = await Zone.listAndPlacements({ publisher: publisherID });
 
     return res.render("publisher/view", {
       publishers: publishersAndZones,
