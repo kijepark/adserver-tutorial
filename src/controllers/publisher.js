@@ -39,7 +39,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       Publisher.findOne(query).lean().exec()
       .then(function(res) {
-        if (res) console.log({ query }, "Retrieves a Publisher");
+        if (res) console.log({ query }, "Retrieves Publisher");
         return resolve(res);
       })
       .catch(function(error) {

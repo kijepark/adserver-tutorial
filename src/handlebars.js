@@ -111,4 +111,21 @@ module.exports = function() {
 
     return new Handlebars.SafeString(navHtml);
   });
+
+  Handlebars.registerHelper("campaignList", function(campaigns) {
+    var navHtml = "";
+
+    for (var i=0; i<campaigns.length; i+=1) {
+      var campaign = campaigns[i];
+
+      navHtml += "<tr>";
+      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + campaign.name + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      navHtml += "</tr>"
+    }
+
+    return new Handlebars.SafeString(navHtml);
+  });
 }

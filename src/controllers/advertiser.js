@@ -35,6 +35,18 @@ module.exports = {
       });
     });
   },
+  retrieve: function(query) {
+    return new Promise(function(resolve, reject) {
+      Advertiser.findOne(query).lean().exec()
+      .then(function(res) {
+        if (res) console.log({ query }, "Retrieves Advertiser");
+        return resolve(res);
+      })
+      .catch(function(error) {
+        return reject(error);
+      });
+    });
+  },
   create: function(query) {
     return new Promise(function(resolve, reject) {
       Advertiser.create(query)

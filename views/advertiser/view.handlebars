@@ -1,1 +1,16 @@
-<h3> Advertiser View </h3>
+<h3> {{ advertiser.name }} </h3> 
+<div class="uk-overflow-auto">
+  <table class="uk-table uk-table-hover uk-table-left uk-table-divider">
+    <thead>
+      <tr>
+        <th class="uk-table-shrink"></th>
+        <th class="uk-table-shrink"> Name </th>
+        <th class="uk-table-shrink"> Ads </th>
+        <th class="uk-table-shrink"> Included In Zones </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ campaignList campaigns }}
+    </tbody>
+  </table>
+</div>
