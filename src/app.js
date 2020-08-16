@@ -42,7 +42,7 @@ mongoose.connect(databaseUri, databaseOptions, async function(error) {
 
   if (!advertisers.length && !campaigns.length) {
     var advertiser = await Advertiser.create({ name: "Default Advertiser" });
-    var campaign = await Campaign.create({ name: "Third Campaign", advertiser: advertiser.id });
+    var campaign = await Campaign.create({ name: "Default Campaign", advertiser: 2 });
   }
 });
 

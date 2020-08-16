@@ -13,6 +13,28 @@ module.exports = {
       });
     });
   },
+  listAndCampaigns: function(query) {
+    return new Promise(function(resolve, reject) {
+      Advertiser.aggregate([
+        { $match: query },
+        {
+          $lookup: {
+            from: "campaigns",
+            localField: "id",
+            foreignField: "advertiser",
+            as: "campaigns"
+          }
+        }
+      ])
+      .then(function(res) {
+        if (res) console.log({ query }, "Lists Advertisers and Campaigns");
+        return resolve(res);
+      })
+      .catch(function(error) {
+        return reject(error);
+      });
+    });
+  },
   create: function(query) {
     return new Promise(function(resolve, reject) {
       Advertiser.create(query)
