@@ -1,12 +1,16 @@
 var express = require("express");
 var expressHandlebars = require("express-handlebars");
 var mongoose = require("mongoose");
+var mongooseSequence = require("mongoose-sequence");
 
 var config = require("./../config.json");
 var router = require("./router");
 
 var app = express();
 var port = 3000;
+
+// Declare Global Variables
+global.mongooseSequence = mongooseSequence;
 
 // Connect to Database
 var databaseUri = config.database.uri;
