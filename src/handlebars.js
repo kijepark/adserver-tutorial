@@ -65,6 +65,22 @@ module.exports = function() {
     return new Handlebars.SafeString(navHtml);
   });
 
+  Handlebars.registerHelper("assignedCampaignList", function(assignedCampaigns) {
+    var html = "";
+
+    for (var i=0; i<assignedCampaigns.length; i+=1) {
+      var assignedCampaign = assignedCampaigns[i];
+
+      html += "<tr>";
+      html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      html += "  <td class='uk-text-nowrap'> " + assignedCampaign.name + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      html += "</tr>";
+    }
+
+    return new Handlebars.SafeString(html);
+  });
+
   Handlebars.registerHelper("advertisersAndCampaigns", function(advertisers) {
     var navHtml = "<ul class='uk-nav-sub'>";
 

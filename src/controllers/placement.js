@@ -3,7 +3,7 @@ var Placement = require("./../models/placement");
 module.exports = {
   list: function(query) {
     return new Promise(function(resolve, reject) {
-      Placement.find(query)
+      Placement.find(query).lean().exec()
       .then(function(res) {
         if (res) console.log({ query }, "Lists Placements");
         return resolve(res);
