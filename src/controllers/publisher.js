@@ -3,7 +3,7 @@ var Publisher = require("./../models/publisher");
 module.exports = {
   list: function(query) {
     return new Promise(function(resolve, reject) {
-      Publisher.find(query)
+      Publisher.find(query).lean().exec()
       .then(function(res) {
         if (res) console.log({ query }, "Lists Publishers");
         return resolve(res);
