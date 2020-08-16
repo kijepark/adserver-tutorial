@@ -17,13 +17,13 @@ app.use(express.static("public"));
 app.use(router);
 
 // Error Handling 404, 500
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
   console.warn("404 Page Not Found", req.url);
   res.sendStatus(404);
   return;
 });
 
-app.use((error, req, res, next) => {
+app.use(function(error, req, res, next) {
   console.error(error);
   res.sendStatus(500);
   return;
