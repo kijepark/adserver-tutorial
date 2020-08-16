@@ -1,7 +1,12 @@
 var express = require("express");
 
+var router = require("./router");
+
 var app = express();
 var port = 3000;
+
+// Express Middlewares
+app.use(router);
 
 // Error Handling 404, 500
 app.use((req, res, next) => {
