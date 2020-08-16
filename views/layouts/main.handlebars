@@ -3,9 +3,94 @@
   <head>
     <title> Adserver Tutorial </title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Icon -->
+    <link href="/images/favicon.png" rel="shortcut icon">
+    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css">
+
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/css/theme.css">
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit-icons.min.js"></script>
   </head>
   <body>
-    {{{body}}}
+    <div class="uk-navbar-container tm-navbar-container uk-sticky uk-sticky-fixed">
+      <div class="uk-container uk-container-expand">
+        <nav class="uk-navbar">
+          <div class="uk-navbar-left">
+            <a href="/" class="uk-navbar-item uk-logo">
+              <img src="/images/uikit-logo.svg" class="uk-margin-small-right">
+              Adserver Tutorial
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="tm-sidebar-left uk-visible@m">
+      <ul class="uk-nav uk-nav-default tm-nav">
+        <li class="uk-nav-header">
+          <h6 class="uk-margin-remove uk-text-light"> Administrator </h6>
+        </li>
+        <li>
+          <a href="#">
+            <span uk-icon="home" class="uk-icon"></span>
+            <span class="uk-text-bottom"> Dashboard </span>            
+          </a>
+        </li>
+        <li class="uk-parent">
+          <a href="#">
+            <span uk-icon="desktop" class="uk-icon"></span>
+            <span class="uk-text-middle"> Publishers </span>
+          </a>
+          <ul class="uk-nav-sub">
+            <li>
+              <a href="#"> Default Publisher </a>
+              <ul class="uk-nav-sub">
+                <li>
+                  <a href="#">
+                    <span uk-icon="move" class="uk-icon"></span>
+                    <span class="uk-text-middle"> Default Zone </span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+       <li class="uk-parent">
+          <a href="#">
+            <span uk-icon="users" class="uk-icon"></span>
+            <span class="uk-text-middle"> Advertisers </span>
+          </a>
+          <ul class="uk-nav-sub">
+            <li>
+              <a href="#"> Default Advertiser </a>
+              <ul class="uk-nav-sub">
+                <li>
+                  <a href="#">
+                    <span uk-icon="image" class="uk-icon"></span>
+                    <span class="uk-text-middle"> Default Campaign </span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="tm-main uk-section uk-section-default">
+      <div class="uk-container uk-container-small uk-position-relative">
+        <div>
+          <div>
+            {{{body}}}
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
