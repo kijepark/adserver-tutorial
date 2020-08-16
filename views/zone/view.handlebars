@@ -1,4 +1,31 @@
 <h3> {{ zone.name }} </h3>
+<div class="uk-display-block uk-text-right">
+  <button id="zone-tag-button" class="uk-button uk-button-primary" uk-toggle="target: #zone-tag-modal" type="button">
+    <span uk-icon="code" class="uk-icon uk-margin-small-right"></span>
+    <span class="uk-text-middle"> Get Zone Tags </span>
+  </button>
+</div>
+<div id="zone-tag-modal" data-zone-size="{{ zone.width }}x{{ zone.height }}" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="uk-modal-title"> Zone Tags </h2>
+    <div class="uk-form-horizontal">
+    <div class="uk-margin">
+      <label class="uk-form-label" for="form-horizontal-select"> Type </label>
+      <div class="uk-form-controls">
+        <select class="uk-select" id="form-horizontal-select">
+          <option> JSON Ad API </option>
+        </select>
+      </div>
+    </div>
+    </div>
+    <div class="uk-margin">
+      <textarea id="zone-tag-area" class="uk-textarea" rows="5" placeholder=""></textarea>
+    </div>
+    <p class="uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button"> Cancel </button>
+    </p>
+  </div>
+</div>
 <h4 class="uk-h4"> Assigned Campaigns </h4>
 <table class="uk-table uk-table-hover uk-table-left uk-table-divider">
   <thead>
