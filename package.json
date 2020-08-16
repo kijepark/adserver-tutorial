@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
+    "handlebars": "^4.7.6",
     "mongoose": "^5.10.0",
     "mongoose-sequence": "^5.2.2"
   },

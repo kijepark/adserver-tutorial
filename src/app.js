@@ -3,14 +3,15 @@ var expressHandlebars = require("express-handlebars");
 var mongoose = require("mongoose");
 var mongooseSequence = require("mongoose-sequence")(mongoose);
 
+// Declare Global Variables
+global.mongooseSequence = mongooseSequence;
+
 var config = require("./../config.json");
 var router = require("./router");
+var handlebars = require("./handlebars")();
 
 var app = express();
 var port = 3000;
-
-// Declare Global Variables
-global.mongooseSequence = mongooseSequence;
 
 // Require controllers for default documents
 var Publisher = require("./controllers/publisher");
@@ -41,7 +42,7 @@ mongoose.connect(databaseUri, databaseOptions, async function(error) {
 
   if (!advertisers.length && !campaigns.length) {
     var advertiser = await Advertiser.create({ name: "Default Advertiser" });
-    var campaign = await Campaign.create({ name: "Default Campaign", advertiser: advertiser.id });
+    var campaign = await Campaign.create({ name: "Third Campaign", advertiser: advertiser.id });
   }
 });
 
