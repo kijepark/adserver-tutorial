@@ -24,6 +24,14 @@ module.exports = {
             foreignField: "campaign.id",
             as: "campaign_assignments"
           }
+        },
+        {
+          $lookup: {
+            from: "placements",
+            localField: "id",
+            foreignField: "advertisement.id",
+            as: "placements"
+          }
         }
       ])
       .then(function(res) {
