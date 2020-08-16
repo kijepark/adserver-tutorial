@@ -12,11 +12,37 @@ var port = 3000;
 // Declare Global Variables
 global.mongooseSequence = mongooseSequence;
 
+// Require controllers for default documents
+var Publisher = require("./controllers/publisher");
+var Zone = require("./controllers/zone");
+var Advertiser = require("./controllers/advertiser");
+var Campaign = require("./controllers/campaign");
+
 // Connect to Database
 var databaseUri = config.database.uri;
 var databaseOptions = config.database.options;
-mongoose.connect(databaseUri, databaseOptions, function() {
+mongoose.connect(databaseUri, databaseOptions, async function(error) {
+  if (error) {
+    console.error(error);
+    return;
+  }
   console.log("MongoDB connected");
+
+  // Creates default Publisher, Advertiser, Zone, Campaign
+  var publishers = await Publisher.list({ });
+  var zones = await Zone.list({ });
+  var advertisers = await Advertiser.list({ });
+  var campaigns = await Campaign.list({ });
+
+  if (!publishers.length && !zones.length) {
+    var publisher = await Publisher.create({ name: "Default Publisher" });
+    var zone = await Zone.create({ name: "Default Zone", publisher: publisher.id });
+  }
+
+  if (!advertisers.length && !campaigns.length) {
+    var advertiser = await Advertiser.create({ name: "Default Advertiser" });
+    var campaign = await Campaign.create({ name: "Default Campaign", advertiser: advertiser.id });
+  }
 });
 
 // Set Template Engine
