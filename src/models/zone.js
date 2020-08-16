@@ -16,11 +16,11 @@ var schema = new mongoose.Schema({
   },
   width: {
     type: Number,
-    default: 0
+    default: 300
   },
   height: {
     type: Number,
-    default: 0
+    default: 250
   },
   publisher: {
     type: Number,
