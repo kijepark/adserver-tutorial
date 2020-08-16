@@ -4,19 +4,23 @@ var schema = new mongoose.Schema({
   id: {
     type: Number,
     default: 0,
-    unique: true
+    unique: true,
+    required: true
   },
   object: {
     type: String,
-    default: "campaign"
+    default: "campaign",
+    required: true
   },
   name: {
     type: String,
-    default: ""
+    default: "",
+    required: true
   },
   advertiser: {
     type: Number,
-    default: 0
+    default: 0,
+    required: true
   }
 });
 

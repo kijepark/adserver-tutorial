@@ -4,15 +4,18 @@ var schema = new mongoose.Schema({
   id: {
     type: Number,
     default: 0,
-    unique: true
+    unique: true,
+    required: true
   },
   object: {
     type: String,
-    default: "advertiser"
+    default: "advertiser",
+    required: true
   },
   name: {
     type: String,
-    default: ""
+    default: "",
+    required: true
   }
 });
 

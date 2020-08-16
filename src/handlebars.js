@@ -48,6 +48,23 @@ module.exports = function() {
     return new Handlebars.SafeString(navHtml);
   });
 
+  Handlebars.registerHelper("zoneList", function(zones) {
+    var navHtml = "";
+
+    for (var i=0; i<zones.length; i+=1) {
+      var zone = zones[i];
+
+      navHtml += "<tr>";
+      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + (zone.width + "x" + zone.height) + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      navHtml += "</tr>"
+    }
+
+    return new Handlebars.SafeString(navHtml);
+  });
+
   Handlebars.registerHelper("advertisersAndCampaigns", function(advertisers) {
     var navHtml = "<ul class='uk-nav-sub'>";
 

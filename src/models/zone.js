@@ -4,27 +4,33 @@ var schema = new mongoose.Schema({
   id: {
     type: Number,
     default: 0,
-    unique: true
+    unique: true,
+    required: true
   },
   object: {
     type: String,
-    default: "zone"
+    default: "zone",
+    required: true
   },
   name: {
     type: String,
-    default: ""
+    default: "",
+    required: true
   },
   width: {
     type: Number,
-    default: 300
+    default: 300,
+    required: true
   },
   height: {
     type: Number,
-    default: 250
+    default: 250,
+    required: true
   },
   publisher: {
     type: Number,
-    default: 0
+    default: 0,
+    required: true
   }
 });
 

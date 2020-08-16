@@ -1,6 +1,7 @@
 var express = require("express");
 
 var Publisher = require("./../controllers/publisher");
+var Zone = require("./../controllers/zone");
 var Advertiser = require("./../controllers/advertiser");
 
 var router = express.Router();
@@ -24,9 +25,15 @@ router.get("/publisher/view", async function(req, res, next) {
     var publishersAndZones = await Publisher.listAndZones({ });
     var advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
+    var publisherID = parseInt(req.query.publisher_id);
+    var publisher = await Publisher.retrieve({ id: publisherID });
+    var zones = await Zone.list({ publisher: publisherID });
+
     return res.render("publisher/view", {
       publishers: publishersAndZones,
-      advertisers: advertisersAndZones
+      advertisers: advertisersAndZones,
+      publisher: publisher,
+      zones: zones
     });
   }catch(error) {
     return next(error);
