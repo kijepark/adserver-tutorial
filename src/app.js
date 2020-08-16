@@ -1,7 +1,7 @@
 var express = require("express");
 var expressHandlebars = require("express-handlebars");
 var mongoose = require("mongoose");
-var mongooseSequence = require("mongoose-sequence");
+var mongooseSequence = require("mongoose-sequence")(mongoose);
 
 var config = require("./../config.json");
 var router = require("./router");
