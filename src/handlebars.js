@@ -144,4 +144,37 @@ module.exports = function() {
 
     return new Handlebars.SafeString(navHtml);
   });
+
+  Handlebars.registerHelper("adItemList", function(adItems) {
+    var html = "";
+
+    for (var i=0; i<adItems.length; i+=1) {
+      var adItem = adItems[i];
+
+      html += "<tr>";
+      html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      html += "  <td class='uk-text-nowrap'> " + adItem.name + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      html += "</tr>"
+    }
+
+    return new Handlebars.SafeString(html);
+  });
+
+  Handlebars.registerHelper("zoneAssignmentList", function(zones) {
+    var html = "";
+
+    for (var i=0; i<zones.length; i+=1) {
+      var zone = zones[i];
+
+      html += "<tr>";
+      html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      html += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      html += "</tr>"
+    }
+
+    return new Handlebars.SafeString(html);
+  });
 }

@@ -1,1 +1,28 @@
 <h3> {{ campaign.name }} </h3>
+<h4 class="uk-h4"> Ad Items </h4>
+<table class="uk-table uk-table-hover uk-table-left uk-table-divider">
+  <thead>
+    <tr>
+      <th class="uk-table-shrink"></th>
+      <th class="uk-table-shrink"> Name </th>
+      <th class="uk-table-shrink"> Total Impressions </th>
+      <th class="uk-table-shrink"> Clicks </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ adItemList ad_items }}
+  </tbody>
+</table>
+<h4 class="uk-h4"> Zone Assignments </h4>
+<table class="uk-table uk-table-hover uk-table-left uk-table-divider">
+  <thead>
+    <tr>
+      <th class="uk-table-shrink"></th>
+      <th class="uk-table-shrink"> Name </th>
+      <th class="uk-table-shrink"> Total Impressions </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ zoneAssignmentList zones }}
+  </tbody>
+</table>
