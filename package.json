@@ -1,0 +1,12 @@
+{
+  "name": "adserver-tutorial",
+  "description": "Adserver Tutorial for platform developers",
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kijepark/adserver-tutorial.git"
+  },
+  "author": "Kije Park"
+}
