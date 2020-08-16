@@ -1,10 +1,19 @@
 var express = require("express");
 var expressHandlebars = require("express-handlebars");
+var mongoose = require("mongoose");
 
+var config = require("./../config.json");
 var router = require("./router");
 
 var app = express();
 var port = 3000;
+
+// Connect to Database
+var databaseUri = config.database.uri;
+var databaseOptions = config.database.options;
+mongoose.connect(databaseUri, databaseOptions, function() {
+  console.log("MongoDB connected");
+});
 
 // Set Template Engine
 app.engine("handlebars", expressHandlebars({
