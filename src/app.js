@@ -1,11 +1,18 @@
 var express = require("express");
+var expressHandlebars = require("express-handlebars");
 
 var router = require("./router");
 
 var app = express();
 var port = 3000;
 
-// Express Middlewares
+// Set Template Engine
+app.engine("handlebars", expressHandlebars({
+  layoutsDir: __dirname + "/../views/layouts/"
+}));
+app.set("view engine", "handlebars");
+
+// Set Middlewares
 app.use(router);
 
 // Error Handling 404, 500
