@@ -54,7 +54,7 @@ router.get("/adserve", async function(req, res) {
     var adItem = adItems[Math.floor(Math.random() * adItems.length)];
     var data = {
       width: adItem.width,
-      height: adItem.width,
+      height: adItem.height,
       target: adItem.html_target,
       redirect_url: adItem.location,
       image_url: adItem.creative_url
