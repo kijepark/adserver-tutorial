@@ -20,6 +20,7 @@ var Advertiser = require("./controllers/advertiser");
 var Campaign = require("./controllers/campaign");
 var AdItem = require("./controllers/adItem");
 var CampaignAssignment = require("./controllers/campaignAssignment");
+var Placement = require("./controllers/placement");
 
 // Connect to Database
 var databaseUri = config.database.uri;
@@ -38,13 +39,14 @@ mongoose.connect(databaseUri, databaseOptions, async function(error) {
   var campaigns = await Campaign.list({ });
   var adItems = await AdItem.list({ });
   var campaignAssignments = await CampaignAssignment.list({ });
+  var placements = await Placement.list({ });
 
-  if (!publishers.length && !zones.length) {
+  if (!publishers.length && !zones.length
+    && !advertisers.length && !campaigns.length
+    && !adItems.length && !campaignAssignments.length
+    && !placements.length) {
     var publisher = await Publisher.create({ name: "Default Publisher" });
     var zone = await Zone.create({ name: "Default Zone", publisher: publisher.id });
-  }
-
-  if (!advertisers.length && !campaigns.length && !adItems.length && !campaignAssignments.length) {
     var advertiser = await Advertiser.create({ name: "Default Advertiser" });
     var campaign = await Campaign.create({ name: "Default Campaign", advertiser: advertiser.id });
     var adItem = await AdItem.create({
@@ -61,6 +63,15 @@ mongoose.connect(databaseUri, databaseOptions, async function(error) {
       },
       campaign: {
         id: campaign.id
+      }
+    });
+    var placement = await Placement.create({
+      zone: {
+        id: zone.id
+      },
+      advertisement: {
+        id: campaign.id,
+        type: campaign.object
       }
     });
   }
