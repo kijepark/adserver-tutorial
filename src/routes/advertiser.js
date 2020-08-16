@@ -27,7 +27,7 @@ router.get("/advertiser/view", async function(req, res, next) {
 
     var advertiserID = parseInt(req.query.advertiser_id);
     var advertiser = await Advertiser.retrieve({ id: advertiserID });
-    var campaigns = await Campaign.list({ advertiser: advertiserID });
+    var campaigns = await Campaign.listAndCampaignAssignments({ advertiser: advertiserID });
 
     return res.render("advertiser/view", {
       publishers: publishersAndZones,

@@ -13,6 +13,28 @@ module.exports = {
       });
     });
   },
+  listAndCampaignAssignments: function(query) {
+    return new Promise(function(resolve, reject) {
+      Campaign.aggregate([
+        { $match: query },
+        {
+          $lookup: {
+            from: "campaign_assignments",
+            localField: "id",
+            foreignField: "campaign.id",
+            as: "campaign_assignments"
+          }
+        }
+      ])
+      .then(function(res) {
+        if (res) console.log({ query }, "Lists Campaigns and Its Assignments");
+        return resolve(res);
+      })
+      .catch(function(error) {
+        return reject(error);
+      });
+    });
+  },
   retrieve: function(query) {
     return new Promise(function(resolve, reject) {
       Campaign.findOne(query).lean().exec()

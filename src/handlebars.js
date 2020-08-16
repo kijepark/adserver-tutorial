@@ -121,7 +121,7 @@ module.exports = function() {
       navHtml += "<tr>";
       navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       navHtml += "  <td class='uk-text-nowrap'> " + campaign.name + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + campaign.campaign_assignments.length + " </td>";
       navHtml += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
       navHtml += "</tr>"
     }
