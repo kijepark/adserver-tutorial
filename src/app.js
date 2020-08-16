@@ -13,6 +13,7 @@ app.engine("handlebars", expressHandlebars({
 app.set("view engine", "handlebars");
 
 // Set Middlewares
+app.use(express.static("public"));
 app.use(router);
 
 // Error Handling 404, 500
