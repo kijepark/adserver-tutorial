@@ -8,5 +8,11 @@
     "type": "git",
     "url": "git+https://github.com/kijepark/adserver-tutorial.git"
   },
-  "author": "Kije Park"
+  "author": "Kije Park",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
