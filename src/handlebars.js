@@ -78,4 +78,20 @@ module.exports = function() {
 
     return new Handlebars.SafeString(navHtml);
   });
+
+  Handlebars.registerHelper("advertiserList", function(advertisers) {
+    var navHtml = "";
+
+    for (var i=0; i<advertisers.length; i+=1) {
+      var advertiser = advertisers[i];
+
+      navHtml += "<tr>";
+      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + advertiser.name + " </td>";
+      navHtml += "  <td class='uk-text-nowrap'> " + advertiser.campaigns.length + " </td>";
+      navHtml += "</tr>"
+    }
+
+    return new Handlebars.SafeString(navHtml);
+  });
 }
