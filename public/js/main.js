@@ -1,25 +1,42 @@
-// Use your server hostname for now it's localhost so get it from window
-var hostname = window.location.hostname + ((window.location.port) ? (":" + window.location.port) : "");
-
 /**
  * 1. Get Zone Tags
  */
 
 // 1. Get Zone Tags
 var zoneTagButton = document.getElementById("zone-tag-button");
-var zoneTagModal = document.getElementById("zone-tag-modal");
 var zoneTagArea = document.getElementById("zone-tag-area");
+var zoneTagTypeSelect = document.getElementById("zone-tag-type-select");
 
 if (zoneTagButton) {
-  var zoneSize = zoneTagModal.getAttribute("data-zone-size");
+  // Updates zone tag from textarea
+  function updateClipboard() {
+    var type = zoneTagTypeSelect.options[zoneTagTypeSelect.selectedIndex].value;
+    var zoneID = new URLSearchParams(window.location.search).get("zone_id");
+    var host = "http://" + window.location.hostname + ((window.location.port) ? (":" + window.location.port) : "");
+    
+    switch(type) {
+      case "js": {
+        zoneTagArea.innerHTML
+        = '<script type="text/javascript">\n'
+        + 'var absrc = "'+host+'/adserve?zone_id='+zoneID+'&type=js";\n'
+        + 'document.write("<scr"+"ipt src="+absrc+" type=\'text/javascript\'></scr"+"ipt>");\n'
+        + '</script>';
+      }
+      break;
+      case "iframe": {
 
-  zoneTagButton.addEventListener("click", function() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var zoneID = urlParams.get('zone_id');
-
-    // API
-    var JSONAdAPI = hostname + "/adserve?size=" + zoneSize + "&zone_id=" + zoneID;
-
-    zoneTagArea.innerHTML = JSONAdAPI;
+      }
+      break;
+      case "json": {
+        zoneTagArea.innerHTML = host + '/adserve?zone_id='+zoneID+'&type=json';
+      }
+      break;
+    }
+  }
+  
+  zoneTagTypeSelect.addEventListener("change", function() {
+    return updateClipboard();
   });
+
+  updateClipboard();
 }
