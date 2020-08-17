@@ -54,11 +54,12 @@ router.get("/adserve", async function(req, res) {
 
     switch(type) {
       case "js": {
-        response = "";
+        response = '';
         response += 'document.write(\'<div style="display:inline-block;margin:0;padding:0;">\');';
         response += 'document.write(\'';
         response +=   '<a href="' + adItem.location + '" target="' + adItem.html_target + '" rel="nofollow">';
         response +=   '<img src="' + adItem.creative_url + '" border="0" width="' + adItem.width + '" height="' + adItem.height + '">';
+        response +=   '</a>';
         response += '\');';
         response += 'document.write(\'</div>\');';
 
@@ -67,7 +68,13 @@ router.get("/adserve", async function(req, res) {
         return;
       }
       case "iframe": {
+        response = '';
+        response += '<a href="' + adItem.location + '" target="' + adItem.html_target + '" rel="nofollow">';
+        response += '<img src="' + adItem.creative_url + '" border="0" width="' + adItem.width + '" height="' + adItem.height + '">';
+        response += '</a>';
 
+        res.send(response);
+        return;
       }
       case "json": {
         response = {
@@ -83,7 +90,7 @@ router.get("/adserve", async function(req, res) {
       }
     }
 
-    return res.send(null);
+    return res.send("Unknown Ad type");
   }catch(error) {
     return res.send(error);
   }

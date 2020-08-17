@@ -6,6 +6,7 @@
 var zoneTagButton = document.getElementById("zone-tag-button");
 var zoneTagArea = document.getElementById("zone-tag-area");
 var zoneTagTypeSelect = document.getElementById("zone-tag-type-select");
+var zoneTagModal = document.getElementById("zone-tag-modal");
 
 if (zoneTagButton) {
   // Updates zone tag from textarea
@@ -13,6 +14,8 @@ if (zoneTagButton) {
     var type = zoneTagTypeSelect.options[zoneTagTypeSelect.selectedIndex].value;
     var zoneID = new URLSearchParams(window.location.search).get("zone_id");
     var host = "http://" + window.location.hostname + ((window.location.port) ? (":" + window.location.port) : "");
+    var zoneWidth = zoneTagModal.getAttribute("data-zone-width");
+    var zoneHeight = zoneTagModal.getAttribute("data-zone-height");
     
     switch(type) {
       case "js": {
@@ -24,7 +27,11 @@ if (zoneTagButton) {
       }
       break;
       case "iframe": {
-
+        zoneTagArea.innerHTML
+        = '<iframe src="'+host+'/adserve?zone_id='+zoneID+'&type=iframe"'
+        + ' width="'+zoneWidth+'" height="'+zoneHeight+'" marginwidth="0" marginheight="0"'
+        + 'hspace="0" vspace="0" frameborder="0" scrolling="no">'
+        + '</iframe>';
       }
       break;
       case "json": {
