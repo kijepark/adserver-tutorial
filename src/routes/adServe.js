@@ -82,6 +82,8 @@ router.get("/adserve", async function(req, res) {
         return;
       }
     }
+
+    return res.send(null);
   }catch(error) {
     return res.send(error);
   }
