@@ -3,7 +3,7 @@ var Zone = require("./../models/zone");
 module.exports = {
   list: function(query) {
     return new Promise(function(resolve, reject) {
-      Zone.find(query)
+      Zone.find(query).lean().exec()
       .then(function(res) {
         if (res) console.log({ query }, "Lists Zones");
         return resolve(res);

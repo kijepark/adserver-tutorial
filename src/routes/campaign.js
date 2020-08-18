@@ -98,4 +98,60 @@ router.post("/campaign/create", async function(req, res) {
   }
 });
 
+router.post("/campaign/zone/assign", async function(req, res) {
+  try {
+    var campaignID = parseInt(req.body.campaign_id);
+    var campaign = await Campaign.retrieve({ id: campaignID });
+
+    var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaign.id });
+    var adItemSizes = [];
+
+    for (var i=0; i<campaignAssignments.length; i+=1) {
+      var campaignAssignment = campaignAssignments[i];
+      var adItem = await AdItem.retrieve({
+        id: campaignAssignment.advertisement.id
+      });
+      
+      adItemSizes.push({
+        width: adItem.width,
+        height: adItem.height
+      });
+    }
+
+    var eligibleZones = [];
+    var zones = await Zone.list({ });
+
+    for (var i=0; i<zones.length; i+=1) {
+      var zone = zones[i];
+
+      for (var t=0; t<adItemSizes.length; t+=1) {
+        var adItemSize = adItemSizes[t];
+
+        if (zone.width === adItemSize.width && zone.height === adItemSize.height) {
+          if (eligibleZones.indexOf(zone) == -1) {
+            eligibleZones.push(zone);
+          }
+        }
+      }
+    }
+
+    var response = [];
+    for (var i=0; i<eligibleZones.length; i+=1) {
+      var eligibleZone = eligibleZones[i];
+      var publisher = await Publisher.retrieve({ id: eligibleZone.publisher });
+
+      response.push({
+        id: eligibleZone.id,
+        name: eligibleZone.name,
+        publisher: publisher.name,
+        size: eligibleZone.width + "x" + eligibleZone.height
+      });
+    }
+
+    return res.send(response);
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;

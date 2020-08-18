@@ -4,8 +4,9 @@
  * 3. Create Zone
  * 4. Create Advertiser
  * 5. Create Campaign
- * 6. Create Campaign Assignment
- * 7. Create Ad Item
+ * 6. Create Placement from Publisher
+ * 7. Create Ad Item and assign it to Campaign
+ * 8. Create Placement from Advertiser 
  */
 
 // 1. Get Zone Tags
@@ -148,68 +149,65 @@ if (campaignCreateButton) {
   });
 }
 
-// 6. Create Campaign Assignment(Placement/create)
+// 6. Create Placement from Publisher
 var createCampaignAssignModalbutton = document.getElementById("campaign-assign-modal-button");
 
 if (createCampaignAssignModalbutton) {
   var campaignAssignList = document.getElementById("campaign-assign-list");
   var campaignAssignListTBody = campaignAssignList.getElementsByTagName("tbody")[0];
+  var zoneID = new URLSearchParams(window.location.search).get("zone_id");
 
-  createCampaignAssignModalbutton.addEventListener("click", function() {
-    var zoneID = new URLSearchParams(window.location.search).get("zone_id");
+  function addAssignButtonClickEvent() {
+    var campaignAssignButtons = campaignAssignListTBody.querySelectorAll("tr");
 
-    function addAssignButtonClickEvent() {
-      var campaignAssignButtons = campaignAssignListTBody.querySelectorAll("tr");
+    for (var i=0; i<campaignAssignButtons.length; i+=1) {
+      var campaignAssignButton = campaignAssignButtons[i];
+      
+      campaignAssignButton.addEventListener("click", function() {
+        var campaignID = this.getAttribute("data-campaign-id");
 
-      for (var i=0; i<campaignAssignButtons.length; i+=1) {
-        var campaignAssignButton = campaignAssignButtons[i];
-        
-        campaignAssignButton.addEventListener("click", function() {
-          var campaignID = this.getAttribute("data-campaign-id");
-
-          $.ajax({
-            method: "POST",
-            url: "/placement/create",
-            data: {
-              zone_id: zoneID,
-              campaign_id: campaignID
-            },
-            success: function(data, status, xhr) {
-              return window.location.reload();
-            }
-          });
+        $.ajax({
+          method: "POST",
+          url: "/placement/create",
+          data: {
+            zone_id: zoneID,
+            campaign_id: campaignID
+          },
+          success: function(data, status, xhr) {
+            return window.location.reload();
+          }
         });
-      }
+      });
     }
-
-    $.ajax({
-      method: "POST",
-      url: "/zone/campaign/assign",
-      data: {
-        zone_id: zoneID
+  }
+  
+  $.ajax({
+    method: "POST",
+    url: "/zone/campaign/assign",
+    data: {
+      zone_id: zoneID
       },
-      success: function(campaigns, status, xhr) {
-        var html = "";
-
-        for (var i=0; i<campaigns.length; i+=1) {
-          var campaign = campaigns[i];
+    success: function(campaigns, status, xhr) {
+      var html = "";
+      
+      for (var i=0; i<campaigns.length; i+=1) {
+        var campaign = campaigns[i];
           
-          html += "<tr data-campaign-id='" + campaign.id + "'>";
-          html += "  <td><button class='uk-button uk-button-default' type='button'> <span uk-icon='check' class='uk-icon'></span> </button></td>";
-          html += "  <td class='uk-text-nowrap'>" + campaign.name + "</td>";
-          html += "  <td class='uk-text-nowrap'>" + campaign.eligible_ad_items + "</td>";
-          html += "  <td class='uk-text-nowrap'>" + campaign.advertiser + "</td>";
-          html += "</tr>";
-        }
-
-        campaignAssignListTBody.innerHTML = html;
-        return addAssignButtonClickEvent();
+        html += "<tr data-campaign-id='" + campaign.id + "'>";
+        html += "  <td><button class='uk-button uk-button-default' type='button'> <span uk-icon='check' class='uk-icon'></span> </button></td>";
+        html += "  <td class='uk-text-nowrap'>" + campaign.name + "</td>";
+        html += "  <td class='uk-text-nowrap'>" + campaign.eligible_ad_items + "</td>";
+        html += "  <td class='uk-text-nowrap'>" + campaign.advertiser + "</td>";
+        html += "</tr>";
       }
-    });
+
+      campaignAssignListTBody.innerHTML = html;
+      return addAssignButtonClickEvent();
+    }
   });
 }
 
-// 7. Create Ad Item
+// 7. Create Ad Item and assign it to Campaign
 var adItemCreateModal = document.getElementById("ad-item-create-modal");
 var adItemCreateButton = document.getElementById("ad-item-create-button");
 
@@ -242,5 +240,64 @@ if (adItemCreateModal) {
         return window.location.reload(); 
       }
     });
+  });
+}
+
+// 8. Create Placement from Advertiser
+var zoneAssignCreateModal = document.getElementById("zone-assign-create-modal");
+var zoneAssignCreateModalButton = document.getElementById("zone-assign-create-modal-button");
+
+if (zoneAssignCreateModal) {
+  var campaignID = new URLSearchParams(window.location.search).get("campaign_id");
+  var zoneAssignList = document.getElementById("zone-assign-list");
+  var zoneAssignListTBody = zoneAssignList.getElementsByTagName("tbody")[0];
+
+  function addAssignButtonClickEvent() {
+    var zoneAssignButtons = zoneAssignListTBody.querySelectorAll("tr");
+
+    for (var i=0; i<zoneAssignButtons.length; i+=1) {
+      var zoneAssignButton = zoneAssignButtons[i];
+      
+      zoneAssignButton.addEventListener("click", function() {
+        var zoneID = this.getAttribute("data-zone-id");
+
+        $.ajax({
+          method: "POST",
+          url: "/placement/create",
+          data: {
+            zone_id: zoneID,
+            campaign_id: campaignID
+          },
+          success: function(data, status, xhr) {
+            return window.location.reload();
+          }
+        });
+      });
+    }
+  }
+
+  $.ajax({
+    method: "POST",
+    url: "/campaign/zone/assign",
+    data: {
+      campaign_id: campaignID
+    },
+    success: function(zones, status, xhr) {
+      var html = "";
+      
+      for (var i=0; i<zones.length; i+=1) {
+        var zone = zones[i];
+          
+        html += "<tr data-zone-id='" + zone.id + "'>";
+        html += "  <td><button class='uk-button uk-button-default' type='button'> <span uk-icon='check' class='uk-icon'></span> </button></td>";
+        html += "  <td class='uk-text-nowrap'>" + zone.name + "</td>";
+        html += "  <td class='uk-text-nowrap'>" + zone.publisher + "</td>";
+        html += "  <td class='uk-text-nowrap'>" + zone.size + "</td>";
+        html += "</tr>";
+      }
+
+      zoneAssignListTBody.innerHTML = html;
+      return addAssignButtonClickEvent();
+    }
   });
 }
