@@ -5,6 +5,7 @@
  * 4. Create Advertiser
  * 5. Create Campaign
  * 6. Create Campaign Assignment
+ * 7. Create Ad Item
  */
 
 // 1. Get Zone Tags
@@ -203,6 +204,42 @@ if (createCampaignAssignModalbutton) {
 
         campaignAssignListTBody.innerHTML = html;
         return addAssignButtonClickEvent();
+      }
+    });
+  });
+}
+
+// 7. Create Ad Item
+var adItemCreateModal = document.getElementById("ad-item-create-modal");
+var adItemCreateButton = document.getElementById("ad-item-create-button");
+
+if (adItemCreateModal) {
+  var campaignID = new URLSearchParams(window.location.search).get("campaign_id");
+  var adItemNameInput = document.getElementById("ad-item-name-input");
+  var adItemLinkInput = document.getElementById("ad-item-link-input");
+  var adItemImageUrlInput = document.getElementById("ad-item-image-url-input");
+  var adItemSizeSelect = document.getElementById("ad-item-size-select");
+
+  adItemCreateButton.addEventListener("click", function() {
+    var adItemName = adItemNameInput.value;
+    var adItemLink = adItemLinkInput.value;
+    var adItemImageUrl = adItemImageUrlInput.value;
+    var adItemSize = adItemSizeSelect.options[adItemSizeSelect.selectedIndex].value;
+    var adItemTarget = document.querySelector('input.uk-radio:checked').value || "";
+
+    $.ajax({
+      method: "POST",
+      url: "/aditem/create",
+      data: {
+        campaign_id: campaignID,
+        name: adItemName,
+        link: adItemLink,
+        image_url: adItemImageUrl,
+        size: adItemSize,
+        html_target: adItemTarget
+      },
+      success: function(campaigns, status, xhr) {
+        return window.location.reload(); 
       }
     });
   });

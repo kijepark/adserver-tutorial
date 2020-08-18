@@ -417,7 +417,7 @@ template {
 
 @media (min-width: 960px) {
   .uk-section {
-    padding-top: 30px;
+    padding-top: 110px;
     padding-bottom: 70px;
   }
 }
@@ -569,4 +569,10 @@ template {
 
 .uk-table-cursor-pointer tbody tr {
   cursor: pointer;
+}
+
+.uk-navbar-container {
+  position: fixed;
+  top: 0px;
+  width: 100%;
 }
