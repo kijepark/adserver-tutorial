@@ -1,5 +1,5 @@
 <h3> {{ zone.name }} </h3>
-<div class="uk-display-block uk-text-right">
+<div class="uk-margin uk-display-block uk-text-right">
   <button id="zone-tag-button" class="uk-button uk-button-primary" uk-toggle="target: #zone-tag-modal" type="button">
     <span uk-icon="code" class="uk-icon uk-margin-small-right"></span>
     <span class="uk-text-middle"> Get Zone Tags </span>
@@ -9,16 +9,16 @@
   <div class="uk-modal-dialog uk-modal-body">
     <h2 class="uk-modal-title"> Zone Tags </h2>
     <div class="uk-form-horizontal">
-    <div class="uk-margin">
-      <label class="uk-form-label" for="form-horizontal-select"> Type </label>
-      <div class="uk-form-controls">
-        <select class="uk-select" id="zone-tag-type-select">
-          <option value="js"> JavaScript </option>
-          <option value="iframe"> IFrame </option>
-          <option value="json"> JSON Ad API </option>
-        </select>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="form-horizontal-select"> Type </label>
+        <div class="uk-form-controls">
+          <select class="uk-select" id="zone-tag-type-select">
+            <option value="js"> JavaScript </option>
+            <option value="iframe"> IFrame </option>
+            <option value="json"> JSON Ad API </option>
+          </select>
+        </div>
       </div>
-    </div>
     </div>
     <div class="uk-margin">
       <textarea id="zone-tag-area" class="uk-textarea" rows="5" placeholder=""></textarea>

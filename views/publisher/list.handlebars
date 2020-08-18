@@ -1,4 +1,33 @@
 <h3> Publishers </h3>
+<div class="uk-margin">
+  <button class="uk-button uk-button-default" uk-toggle="target: #publisher-create-modal" type="button">
+    <span uk-icon="plus" class="uk-icon uk-margin-small-right"></span>
+    <span class="uk-text-middle"> Add New </span>
+  </button>
+</div>
+<div id="publisher-create-modal" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="uk-modal-title"> New Publisher </h2>
+    <div class="uk-form-horizontal">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="publisher-name-input"> Name </label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="publisher-name-input" type="text" placeholder="">
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="publisher-domain-input"> Domain </label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="publisher-domain-input" type="text" placeholder="example.com">
+        </div>
+      </div>
+    </div>
+    <p class="uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button"> Cancel </button>
+      <button id="publisher-create-button" class="uk-button uk-button-primary" type="button"> Create </button>
+    </p>
+  </div>
+</div>
 <div class="uk-overflow-auto">
   <table class="uk-table uk-table-hover uk-table-left uk-table-divider">
     <thead>

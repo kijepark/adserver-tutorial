@@ -40,4 +40,19 @@ router.get("/publisher/view", async function(req, res, next) {
   }
 });
 
+router.post("/publisher/create", async function(req, res) {
+  try {
+    var { name, domain } = req.body;
+
+    await Publisher.create({
+      name: name,
+      domain: domain
+    });
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;

@@ -1,5 +1,6 @@
 /**
  * 1. Get Zone Tags
+ * 2. Create & Delete Publisher
  */
 
 // 1. Get Zone Tags
@@ -30,7 +31,7 @@ if (zoneTagButton) {
         zoneTagArea.innerHTML
         = '<iframe src="'+host+'/adserve?zone_id='+zoneID+'&type=iframe"'
         + ' width="'+zoneWidth+'" height="'+zoneHeight+'" marginwidth="0" marginheight="0"'
-        + 'hspace="0" vspace="0" frameborder="0" scrolling="no">'
+        + ' hspace="0" vspace="0" frameborder="0" scrolling="no">'
         + '</iframe>';
       }
       break;
@@ -46,4 +47,28 @@ if (zoneTagButton) {
   });
 
   updateClipboard();
+}
+
+// 2. Create & Delete Publisher
+var publisherCreateButton = document.getElementById("publisher-create-button");
+var publisherNameInput = document.getElementById("publisher-name-input");
+var publisherDomainInput = document.getElementById("publisher-domain-input");
+
+if (publisherCreateButton) {
+  publisherCreateButton.addEventListener("click", function() {
+    var publisherName = publisherNameInput.value;
+    var publisherDomain = publisherDomainInput.value;
+
+    $.ajax({
+      method: "POST",
+      url: "/publisher/create",
+      data: {
+        name: publisherName,
+        domain: publisherDomain
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
+  });
 }
