@@ -2,6 +2,7 @@ var express = require("express");
 var expressHandlebars = require("express-handlebars");
 var mongoose = require("mongoose");
 var mongooseSequence = require("mongoose-sequence")(mongoose);
+var bodyParser = require("body-parser");
 
 // Declare Global Variables
 global.mongooseSequence = mongooseSequence;
@@ -85,6 +86,8 @@ app.engine("handlebars", expressHandlebars({
 app.set("view engine", "handlebars");
 
 // Set Middlewares
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.static("public"));
 app.use(router);
 
