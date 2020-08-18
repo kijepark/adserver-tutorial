@@ -40,4 +40,18 @@ router.get("/advertiser/view", async function(req, res, next) {
   }
 });
 
+router.post("/advertiser/create", async function(req, res) {
+  try {
+    var { name } = req.body;
+
+    await Advertiser.create({
+      name: name
+    });
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;

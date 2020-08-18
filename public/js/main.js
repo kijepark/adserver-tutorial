@@ -2,6 +2,7 @@
  * 1. Get Zone Tags
  * 2. Create Publisher
  * 3. Create Zone
+ * 4. Create Advertiser
  */
 
 // 1. Get Zone Tags
@@ -97,5 +98,26 @@ if (zoneCreateButton) {
         return window.location.reload();
       }
     });    
+  });
+}
+
+// 4. Create Advertiser
+var advertiserCreateButton = document.getElementById("advertiser-create-button");
+var advertiserNameInput = document.getElementById("advertiser-name-input");
+
+if (advertiserCreateButton) {
+  advertiserCreateButton.addEventListener("click", function() {
+    var advertiserName = advertiserNameInput.value;
+
+    $.ajax({
+      method: "POST",
+      url: "/advertiser/create",
+      data: {
+        name: advertiserName
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
   });
 }
