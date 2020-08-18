@@ -38,13 +38,15 @@ module.exports = {
     });
   },
   update: function(query, document) {
-    return new Promise((resolve, reject) => {
+    return new Promise(function(resolve, reject) {
       Report.findOneAndUpdate(query, document)
-      .then(res => {
+      .then(function(res) {
         if (res) console.log({ query }, "Updates Report");
         return resolve(res);
       })
-      .catch(error => reject(error));
+      .catch(function(error) {
+        return reject(error);
+      });
     });
   }
 }
