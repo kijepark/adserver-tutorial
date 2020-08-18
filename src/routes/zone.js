@@ -49,4 +49,24 @@ router.get("/zone/view", async function(req, res, next) {
   }
 });
 
+router.post("/zone/create", async function(req, res) {
+  try {
+    var publisherID = req.body.publisher_id;
+    var { name, size } = req.body;
+    var width = size.split("x")[0];
+    var height = size.split("x")[1];
+
+    await Zone.create({
+      publisher: publisherID,
+      name: name,
+      width: width,
+      height: height
+    });
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;

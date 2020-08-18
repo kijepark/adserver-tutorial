@@ -1,6 +1,7 @@
 /**
  * 1. Get Zone Tags
- * 2. Create & Delete Publisher
+ * 2. Create Publisher
+ * 3. Create Zone
  */
 
 // 1. Get Zone Tags
@@ -49,7 +50,7 @@ if (zoneTagButton) {
   updateClipboard();
 }
 
-// 2. Create & Delete Publisher
+// 2. Create Publisher
 var publisherCreateButton = document.getElementById("publisher-create-button");
 var publisherNameInput = document.getElementById("publisher-name-input");
 var publisherDomainInput = document.getElementById("publisher-domain-input");
@@ -70,5 +71,31 @@ if (publisherCreateButton) {
         return window.location.reload();
       }
     });
+  });
+}
+
+// 3. Create Zone
+var zoneCreateButton = document.getElementById("zone-create-button");
+var zoneNameInput = document.getElementById("zone-name-input");
+var zoneSizeSelect = document.getElementById("zone-size-select");
+
+if (zoneCreateButton) {
+  zoneCreateButton.addEventListener("click", function() {
+    var zoneName = zoneNameInput.value;
+    var zoneSize = zoneSizeSelect.options[zoneSizeSelect.selectedIndex].value;
+    var publisherID = new URLSearchParams(window.location.search).get("publisher_id");
+
+    $.ajax({
+      method: "POST",
+      url: "/zone/create",
+      data: {
+        publisher_id: publisherID,
+        name: zoneName,
+        size: zoneSize
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });    
   });
 }
