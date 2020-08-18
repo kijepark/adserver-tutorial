@@ -31,13 +31,15 @@ router.get("/adserve", async function(req, res) {
     // but in this tutorial I didn't include kind of options
     // get random one instead
     var placement = placements[Math.floor(Math.random() * placements.length)];
+    var placementID = placement.id;
 
     var campaign = await Campaign.retrieve({ id: placement.advertisement.id });
     if (!campaign) {
       return res.send("No Campaign Found");
     }
+    var campaignID = campaign.id;
 
-    var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaign.id });
+    var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
     var adItems = [];
 
     for (var i=0; i<campaignAssignments.length; i+=1) {
@@ -53,14 +55,15 @@ router.get("/adserve", async function(req, res) {
     // Also need to figure out the most eligible one but
     // use Random() instead
     var adItem = adItems[Math.floor(Math.random() * adItems.length)];
+    var adItemID = adItem.id;
     var response = null;
 
     // Tracking impressions
     var query = {
-      "placement": placement.id,
+      "placement": placementID,
       "zone.id": zoneID,
-      "campaign.id": campaign.id,
-      "ad_item.id": adItem.id,
+      "campaign.id": campaignID,
+      "ad_item.id": adItemID,
       "date": moment().format("YYYY-MM-DD")
     }
   
@@ -75,12 +78,17 @@ router.get("/adserve", async function(req, res) {
       await Report.create(query);
     }
 
+    // Creates redirect url, like below
+    // host/redirect?placement_id=${PlacementID}&zone_id=${ZoneID}&campaign_id=${CampaignID}&ad_item_id=${AdItemID}
+    var host = req.protocol + '://' + req.get("host");
+    var redirectURL = host+"/redirect?placement_id="+placementID+"&zone_id="+zoneID+"&campaign_id="+campaignID+"&ad_item_id="+adItemID;
+
     switch(type) {
       case "js": {
         response = '';
         response += 'document.write(\'<div style="display:inline-block;margin:0;padding:0;">\');';
         response += 'document.write(\'';
-        response +=   '<a href="' + adItem.location + '" target="' + adItem.html_target + '" rel="nofollow">';
+        response +=   '<a href="' + redirectURL + '" target="' + adItem.html_target + '" rel="nofollow">';
         response +=   '<img src="' + adItem.creative_url + '" border="0" width="' + adItem.width + '" height="' + adItem.height + '">';
         response +=   '</a>';
         response += '\');';
@@ -92,7 +100,7 @@ router.get("/adserve", async function(req, res) {
       }
       case "iframe": {
         response = '';
-        response += '<a href="' + adItem.location + '" target="' + adItem.html_target + '" rel="nofollow">';
+        response += '<a href="' + redirectURL + '" target="' + adItem.html_target + '" rel="nofollow">';
         response += '<img src="' + adItem.creative_url + '" border="0" width="' + adItem.width + '" height="' + adItem.height + '">';
         response += '</a>';
 
@@ -104,7 +112,7 @@ router.get("/adserve", async function(req, res) {
           width: adItem.width,
           height: adItem.height,
           target: adItem.html_target,
-          redirect_url: adItem.location,
+          redirect_url: redirectURL,
           image_url: adItem.creative_url
         }
 
