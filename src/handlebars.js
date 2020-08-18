@@ -74,7 +74,7 @@ module.exports = function() {
       html += "<tr>";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + assignedCampaign.name + " </td>";
-      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + assignedCampaign.total_impressions + " </td>";
       html += "</tr>";
     }
 
@@ -154,8 +154,8 @@ module.exports = function() {
       html += "<tr>";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + adItem.name + " </td>";
-      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
-      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + adItem.total_impressions + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + adItem.clicks + " </td>";
       html += "</tr>"
     }
 
@@ -171,7 +171,7 @@ module.exports = function() {
       html += "<tr>";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
-      html += "  <td class='uk-text-nowrap'> " + 0 + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + zone.total_impressions + " </td>";
       html += "</tr>"
     }
 

@@ -5,6 +5,7 @@ var Zone = require("./../controllers/zone");
 var Advertiser = require("./../controllers/advertiser");
 var Placement = require("./../controllers/placement");
 var Campaign = require("./../controllers/campaign");
+var Report = require("./../controllers/report");
 
 var router = express.Router();
 
@@ -21,6 +22,18 @@ router.get("/zone/view", async function(req, res, next) {
     for (var i=0; i<placements.length; i+=1) {
       var placement = placements[i];
       var campaign = await Campaign.retrieve({ id: placement.advertisement.id });
+
+      // Add total impressions regarding Placement
+      var reports = await Report.list({
+        placement: placement.id,
+        "campaign.id": campaign.id
+      });
+
+      var totalImpressions = 0;
+      for (var t=0; t<reports.length; t+=1) {
+        totalImpressions += reports[t].impressions;
+      }
+      campaign.total_impressions = totalImpressions;
 
       assignedCampaigns.push(campaign);
     }

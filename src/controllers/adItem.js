@@ -15,7 +15,7 @@ module.exports = {
   },
   retrieve: function(query) {
     return new Promise(function(resolve, reject) {
-      AdItem.findOne(query)
+      AdItem.findOne(query).lean().exec()
       .then(function(res) {
         if (res) console.log({ query }, "Retrieves AdItem");
         return resolve(res);
