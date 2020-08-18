@@ -430,6 +430,10 @@ template {
   background: linear-gradient(to left, #28a5f5, #1e87f0);
 }
 
+.uk-logo {
+  font-size: 1.3rem;
+}
+
 .uk-light .uk-logo, .uk-section-primary:not(.uk-preserve-color) .uk-logo, .uk-section-secondary:not(.uk-preserve-color) .uk-logo, .uk-tile-primary:not(.uk-preserve-color) .uk-logo, .uk-tile-secondary:not(.uk-preserve-color) .uk-logo, .uk-card-primary.uk-card-body .uk-logo, .uk-card-primary>:not([class*='uk-card-media']) .uk-logo, .uk-card-secondary.uk-card-body .uk-logo, .uk-card-secondary>:not([class*='uk-card-media']) .uk-logo, .uk-overlay-primary .uk-logo, .tm-navbar-container:not(.uk-navbar-transparent) .uk-logo {
   color: #fff;
 }
