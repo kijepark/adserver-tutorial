@@ -36,5 +36,15 @@ module.exports = {
         return reject(error);
       });
     });
+  },
+  update: function(query, document) {
+    return new Promise((resolve, reject) => {
+      Report.findOneAndUpdate(query, document)
+      .then(res => {
+        if (res) console.log({ query }, "Updates Report");
+        return resolve(res);
+      })
+      .catch(error => reject(error));
+    });
   }
 }
