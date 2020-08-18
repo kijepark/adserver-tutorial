@@ -33,36 +33,48 @@ module.exports = function() {
   });
 
   Handlebars.registerHelper("publisherList", function(publishers) {
-    var navHtml = "";
+    var html = "";
 
     for (var i=0; i<publishers.length; i+=1) {
       var publisher = publishers[i];
 
-      navHtml += "<tr>";
-      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + publisher.name + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + publisher.zones.length + " </td>";
-      navHtml += "</tr>"
+      html += "<tr>";
+      html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      html += "  <td class='uk-text-nowrap'> " + publisher.name + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + publisher.zones.length + " </td>";
+      html += "</tr>"
     }
 
-    return new Handlebars.SafeString(navHtml);
+    if (!publishers.length) {
+      html += "<tr>";
+      html += "  <td colspan='3' class='uk-text-center'> This administrator has no publishers </td>";
+      html += "</tr>";
+    }
+
+    return new Handlebars.SafeString(html);
   });
 
   Handlebars.registerHelper("zoneList", function(zones) {
-    var navHtml = "";
+    var html = "";
 
     for (var i=0; i<zones.length; i+=1) {
       var zone = zones[i];
 
-      navHtml += "<tr>";
-      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + (zone.width + "x" + zone.height) + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + zone.placements.length + " </td>";
-      navHtml += "</tr>"
+      html += "<tr>";
+      html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      html += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + (zone.width + "x" + zone.height) + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + zone.placements.length + " </td>";
+      html += "</tr>"
     }
 
-    return new Handlebars.SafeString(navHtml);
+    if (!zones.length) {
+      html += "<tr>";
+      html += "  <td colspan='4' class='uk-text-center'> This publisher has no zones </td>";
+      html += "</tr>";
+    }
+
+    return new Handlebars.SafeString(html);
   });
 
   Handlebars.registerHelper("assignedCampaignList", function(assignedCampaigns) {
@@ -75,6 +87,12 @@ module.exports = function() {
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + assignedCampaign.name + " </td>";
       html += "  <td class='uk-text-nowrap'> " + assignedCampaign.total_impressions + " </td>";
+      html += "</tr>";
+    }
+
+    if (!assignedCampaigns.length) {
+      html += "<tr>";
+      html += "  <td colspan='3' class='uk-text-center'> This zone has no assigned campaigns </td>";
       html += "</tr>";
     }
 
@@ -113,36 +131,48 @@ module.exports = function() {
   });
 
   Handlebars.registerHelper("advertiserList", function(advertisers) {
-    var navHtml = "";
+    var html = "";
 
     for (var i=0; i<advertisers.length; i+=1) {
       var advertiser = advertisers[i];
 
-      navHtml += "<tr>";
-      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + advertiser.name + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + advertiser.campaigns.length + " </td>";
-      navHtml += "</tr>"
+      html += "<tr>";
+      html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      html += "  <td class='uk-text-nowrap'> " + advertiser.name + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + advertiser.campaigns.length + " </td>";
+      html += "</tr>"
     }
 
-    return new Handlebars.SafeString(navHtml);
+    if (!advertisers.length) {
+      html += "<tr>";
+      html += "  <td colspan='3' class='uk-text-center'> This administrator has no advertisers </td>";
+      html += "</tr>";
+    }
+
+    return new Handlebars.SafeString(html);
   });
 
   Handlebars.registerHelper("campaignList", function(campaigns) {
-    var navHtml = "";
+    var html = "";
 
     for (var i=0; i<campaigns.length; i+=1) {
       var campaign = campaigns[i];
 
-      navHtml += "<tr>";
-      navHtml += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + campaign.name + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + campaign.campaign_assignments.length + " </td>";
-      navHtml += "  <td class='uk-text-nowrap'> " + campaign.placements.length + " </td>";
-      navHtml += "</tr>"
+      html += "<tr>";
+      html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
+      html += "  <td class='uk-text-nowrap'> " + campaign.name + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + campaign.campaign_assignments.length + " </td>";
+      html += "  <td class='uk-text-nowrap'> " + campaign.placements.length + " </td>";
+      html += "</tr>"
     }
 
-    return new Handlebars.SafeString(navHtml);
+    if (!campaigns.length) {
+      html += "<tr>";
+      html += "  <td colspan='4' class='uk-text-center'> This advertiser has no campaigns </td>";
+      html += "</tr>";
+    }
+
+    return new Handlebars.SafeString(html);
   });
 
   Handlebars.registerHelper("adItemList", function(adItems) {
@@ -159,6 +189,12 @@ module.exports = function() {
       html += "</tr>"
     }
 
+    if (!adItems.length) {
+      html += "<tr>";
+      html += "  <td colspan='4' class='uk-text-center'> This campaign has no ad items </td>";
+      html += "</tr>";
+    }
+
     return new Handlebars.SafeString(html);
   });
 
@@ -173,6 +209,12 @@ module.exports = function() {
       html += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
       html += "  <td class='uk-text-nowrap'> " + zone.total_impressions + " </td>";
       html += "</tr>"
+    }
+
+    if (!zones.length) {
+      html += "<tr>";
+      html += "  <td colspan='3' class='uk-text-center'> This campaign has no zone assignments </td>";
+      html += "</tr>";
     }
 
     return new Handlebars.SafeString(html);
