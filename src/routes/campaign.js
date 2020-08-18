@@ -82,4 +82,20 @@ router.get("/campaign/view", async function(req, res, next) {
   }
 });
 
+router.post("/campaign/create", async function(req, res) {
+  try {
+    var advertiserID = req.body.advertiser_id;
+    var { name } = req.body;
+
+    await Campaign.create({
+      advertiser: advertiserID,
+      name: name
+    });
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;

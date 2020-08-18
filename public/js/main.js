@@ -3,6 +3,7 @@
  * 2. Create Publisher
  * 3. Create Zone
  * 4. Create Advertiser
+ * 5. Create Campaign
  */
 
 // 1. Get Zone Tags
@@ -119,5 +120,28 @@ if (advertiserCreateButton) {
         return window.location.reload();
       }
     });
+  });
+}
+
+// 5. Create Campaign
+var campaignCreateButton = document.getElementById("campaign-create-button");
+var campaignNameInput = document.getElementById("campaign-name-input");
+
+if (campaignCreateButton) {
+  campaignCreateButton.addEventListener("click", function() {
+    var campaignName = campaignNameInput.value;
+    var advertiserID = new URLSearchParams(window.location.search).get("advertiser_id");
+
+    $.ajax({
+      method: "POST",
+      url: "/campaign/create",
+      data: {
+        advertiser_id: advertiserID,
+        name: campaignName
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });    
   });
 }
