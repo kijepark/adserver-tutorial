@@ -133,6 +133,7 @@ router.get("/redirect", async function(req, res) {
     return res.send("No Ad Item Found");
   }
 
+  // Tracking clicks
   var query = {
     "placement": placementID,
     "zone.id": zoneID,
