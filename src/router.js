@@ -7,6 +7,7 @@ var advertiserRoute = require("./routes/advertiser");
 var campaignRoute = require("./routes/campaign");
 var adServeRoute = require("./routes/adServe");
 var placementRoute = require("./routes/placement");
+var adItemRoute = require("./routes/adItem");
 
 var router = express.Router();
 
@@ -17,5 +18,6 @@ router.use(advertiserRoute);
 router.use(campaignRoute);
 router.use(adServeRoute);
 router.use(placementRoute);
+router.use(adItemRoute);
 
 module.exports = router;
