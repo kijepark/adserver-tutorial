@@ -566,3 +566,7 @@ template {
 .uk-table tr td {
   font-size: 14px;
 }
+
+.uk-table-cursor-pointer tbody tr {
+  cursor: pointer;
+}

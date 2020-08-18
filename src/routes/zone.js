@@ -5,6 +5,8 @@ var Zone = require("./../controllers/zone");
 var Advertiser = require("./../controllers/advertiser");
 var Placement = require("./../controllers/placement");
 var Campaign = require("./../controllers/campaign");
+var CampaignAssignment = require("./../controllers/campaignAssignment");
+var AdItem = require("./../controllers/adItem");
 var Report = require("./../controllers/report");
 
 var router = express.Router();
@@ -64,6 +66,54 @@ router.post("/zone/create", async function(req, res) {
     });
 
     return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
+router.post("/zone/campaign/assign", async function(req, res) {
+  try {
+    var zoneID = parseInt(req.body.zone_id);
+    var zone = await Zone.retrieve({ id: zoneID });
+    
+    var campaigns = await Campaign.list({ });
+    var response = [];
+
+    for (var i=0; i<campaigns.length; i+=1) {
+      var campaign = campaigns[i];
+      campaign.eligible_ad_items = [];
+
+      var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaign.id });
+
+      for (var t=0; t<campaignAssignments.length; t+=1) {
+        var campaignAssignment = campaignAssignments[t];
+        var adItems = await AdItem.list({
+          id: campaignAssignment.advertisement.id
+        });
+
+        for (var z=0; z<adItems.length; z+=1) {
+          var adItem = adItems[z];
+
+          if (zone.width === adItem.width && zone.height === adItem.height) {
+            campaign.eligible_ad_items.push(adItem);
+          }
+        }
+      }
+    }
+
+    for (var i=0; i<campaigns.length; i+=1) {
+      var campaign = campaigns[i];
+      var advertiser = await Advertiser.retrieve({ id: campaign.advertiser });
+
+      response.push({
+        id: campaign.id,
+        name: campaign.name,
+        eligible_ad_items: campaign.eligible_ad_items.length,
+        advertiser: advertiser.name
+      });
+    }
+
+    return res.send(response);
   }catch(error) {
     return res.send(error);
   }

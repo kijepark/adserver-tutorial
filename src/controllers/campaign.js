@@ -3,7 +3,7 @@ var Campaign = require("./../models/campaign");
 module.exports = {
   list: function(query) {
     return new Promise(function(resolve, reject) {
-      Campaign.find(query)
+      Campaign.find(query).lean().exec()
       .then(function(res) {
         if (res) console.log({ query }, "Lists Campaigns");
         return resolve(res);

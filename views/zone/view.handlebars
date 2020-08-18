@@ -29,6 +29,37 @@
   </div>
 </div>
 <h4 class="uk-h4"> Assigned Campaigns </h4>
+<div class="uk-margin">
+  <button id="campaign-assign-modal-button" class="uk-button uk-button-default" uk-toggle="target: #campaign-assign-create-modal" type="button">
+    <span uk-icon="plus" class="uk-icon uk-margin-small-right"></span>
+    <span class="uk-text-middle"> Assign New </span>
+  </button>
+</div>
+<div id="campaign-assign-create-modal" class="uk-modal-container" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h4 class="uk-h4"> Select a campaign to assign to "{{ zone.name }}" </h4>
+    <div class="uk-form-horizontal">
+      <table id="campaign-assign-list" class="uk-table uk-table-hover uk-table-middle uk-table-divider uk-table-cursor-pointer">
+        <thead>
+          <tr>
+            <th class="uk-table-shrink"></th>
+            <th class="uk-table-shrink"> Campaign </th>
+            <th class="uk-table-shrink"> Eligible Ad Items </th>
+            <th class="uk-table-shrink"> Advertiser </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="uk-text-center">
+            <td colspan="4"> No Campaigns Found </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button"> Cancel </button>
+    </p>
+  </div>
+</div>
 <table class="uk-table uk-table-hover uk-table-left uk-table-divider">
   <thead>
     <tr>
