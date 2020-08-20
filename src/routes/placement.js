@@ -16,7 +16,27 @@ router.post("/placement/create", async function(req, res) {
 
     return res.send();
   }catch(error) {
-    return next(error);
+    return res.send(error);
+  }
+});
+
+router.post("/placement/delete", async function(req, res) {
+  try {
+    var campaignIDs = req.body.ids;
+    var zoneID = req.body.zone_id;
+
+    for (var i=0; i<campaignIDs.length; i+=1) {
+      var campaignID = parseInt(campaignIDs[i]);
+      
+      await Placement.delete({
+        "zone.id": zoneID,
+        "advertisement.id": campaignID
+      });
+    }
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
   }
 });
 

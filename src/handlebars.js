@@ -83,7 +83,7 @@ module.exports = function() {
     for (var i=0; i<assignedCampaigns.length; i+=1) {
       var assignedCampaign = assignedCampaigns[i];
 
-      html += "<tr>";
+      html += "<tr data-campaign-id=" + assignedCampaign.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + assignedCampaign.name + " </td>";
       html += "  <td class='uk-text-nowrap'> " + assignedCampaign.total_impressions + " </td>";

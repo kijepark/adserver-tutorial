@@ -4,7 +4,9 @@
  * 3. Create Zone
  * 4. Create Advertiser
  * 5. Create Campaign
- * 6. Create Placement from Publisher
+ * 6. Placement from Publisher
+ * - create
+ * - delete
  * 7. Create Ad Item and assign it to Campaign
  * 8. Create Placement from Advertiser 
  */
@@ -149,7 +151,8 @@ if (campaignCreateButton) {
   });
 }
 
-// 6. Create Placement from Publisher
+// 6. Placement from Publisher
+// - create
 var createCampaignAssignModalbutton = document.getElementById("campaign-assign-modal-button");
 
 if (createCampaignAssignModalbutton) {
@@ -204,6 +207,41 @@ if (createCampaignAssignModalbutton) {
       campaignAssignListTBody.innerHTML = html;
       return addAssignButtonClickEvent();
     }
+  });
+}
+
+// - delete
+var campaignAssignDeleteButton = document.getElementById("campaign-assign-delete-button");
+
+if (campaignAssignDeleteButton) {
+  campaignAssignDeleteButton.addEventListener("click", function() {
+    var zoneID = new URLSearchParams(window.location.search).get("zone_id");
+    var campaignAssignList = document.getElementById("campaign-assigned-list");
+    var checkboxes = campaignAssignList.getElementsByClassName("uk-checkbox");
+    var campaignIDsToDelete = [];
+
+    for (var i=0; i<checkboxes.length; i+=1) {
+      var checkbox = checkboxes[i];
+
+      if (checkbox.checked) {
+        var tr = checkbox.parentNode.parentNode;
+        var campaignID = parseInt(tr.getAttribute("data-campaign-id"));
+
+        campaignIDsToDelete.push(campaignID);
+      }
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/placement/delete",
+      data: {
+        zone_id: zoneID,
+        ids: campaignIDsToDelete
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
   });
 }
 

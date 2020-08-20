@@ -60,7 +60,7 @@
     </p>
   </div>
 </div>
-<table class="uk-table uk-table-hover uk-table-left uk-table-divider">
+<table id="campaign-assigned-list" class="uk-table uk-table-hover uk-table-left uk-table-divider">
   <thead>
     <tr>
       <th class="uk-table-shrink"></th>
@@ -72,3 +72,9 @@
     {{ assignedCampaignList assigned_campaigns }}
   </tbody>
 </table>
+<div class="uk-margin">
+  <button id="campaign-assign-delete-button" class="uk-button uk-button-default" type="button">
+    <span uk-icon="close" class="uk-icon uk-margin-small-right"></span>
+    <span class="uk-text-middle"> Remove </span>
+  </button>
+</div>

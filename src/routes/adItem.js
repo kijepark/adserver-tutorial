@@ -32,7 +32,7 @@ router.post("/aditem/create", async function(req, res) {
 
     return res.send();
   }catch(error) {
-    return next(error);
+    return res.send(error);
   }
 });
 

@@ -24,5 +24,15 @@ module.exports = {
         return reject(error);
       });
     });
+  },
+  delete: function(query) {
+    return new Promise(function(resolve, reject) {
+      Placement.deleteMany(query)
+      .then(res => {
+        if (res.deletedCount) console.log({ query }, "Deletes Placement");
+        return resolve(res);
+      })
+      .catch(error => reject(error));
+    });
   }
 }
