@@ -71,6 +71,24 @@ router.post("/zone/create", async function(req, res) {
   }
 });
 
+router.post("/zone/delete", async function(req, res) {
+  try {
+    var zoneIDsToDelete = req.body.ids;
+
+    // Find placements related to the zone and delete it all
+    for (var i=0; i<zoneIDsToDelete.length; i+=1) {
+      var zoneID = zoneIDsToDelete[i];
+
+      await Placement.delete({ "zone.id": zoneID });
+      await Zone.delete({ id: zoneID });
+    }
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 router.post("/zone/campaign/assign", async function(req, res) {
   try {
     var zoneID = parseInt(req.body.zone_id);

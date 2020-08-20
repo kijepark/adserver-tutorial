@@ -58,5 +58,15 @@ module.exports = {
         return reject(error);
       });
     });
+  },
+  delete: function(query) {
+    return new Promise(function(resolve, reject) {
+      Zone.deleteMany(query)
+      .then(res => {
+        if (res.deletedCount) console.log({ query }, "Deletes Zone");
+        return resolve(res);
+      })
+      .catch(error => reject(error));
+    });
   }
 }

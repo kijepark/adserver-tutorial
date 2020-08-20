@@ -1,7 +1,9 @@
 /**
  * 1. Get Zone Tags
  * 2. Create Publisher
- * 3. Create Zone
+ * 3. Zone
+ * - create
+ * - delete
  * 4. Create Advertiser
  * 5. Create Campaign
  * 6. Placement from Publisher
@@ -81,7 +83,8 @@ if (publisherCreateButton) {
   });
 }
 
-// 3. Create Zone
+// 3. Zone
+// - create
 var zoneCreateButton = document.getElementById("zone-create-button");
 var zoneNameInput = document.getElementById("zone-name-input");
 var zoneSizeSelect = document.getElementById("zone-size-select");
@@ -104,6 +107,38 @@ if (zoneCreateButton) {
         return window.location.reload();
       }
     });    
+  });
+}
+
+// - delete
+var zoneDeleteButton = document.getElementById("zone-delete-button");
+
+if (zoneDeleteButton) {
+  zoneDeleteButton.addEventListener("click", function() {
+    var checkboxes = document.getElementsByClassName("uk-checkbox");
+    var zoneIDsToDelete = [];
+
+    for (var i=0; i<checkboxes.length; i+=1) {
+      var checkbox = checkboxes[i];
+
+      if (checkbox.checked) {
+        var row = checkbox.parentNode.parentNode;
+        var zoneID = parseInt(row.getAttribute("data-zone-id"));
+
+        zoneIDsToDelete.push(zoneID);
+      }
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/zone/delete",
+      data: {
+        ids: zoneIDsToDelete
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
   });
 }
 
