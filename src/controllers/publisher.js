@@ -58,5 +58,15 @@ module.exports = {
         return reject(error);
       });
     });
+  },
+  delete: function(query) {
+    return new Promise(function(resolve, reject) {
+      Publisher.deleteMany(query)
+      .then(res => {
+        if (res.deletedCount) console.log({ query }, "Deletes Publisher");
+        return resolve(res);
+      })
+      .catch(error => reject(error));
+    });
   }
 }

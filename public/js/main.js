@@ -1,6 +1,8 @@
 /**
  * 1. Get Zone Tags
- * 2. Create Publisher
+ * 2. Publisher
+ * - create
+ * - delete
  * 3. Zone
  * - create
  * - delete
@@ -59,7 +61,8 @@ if (zoneTagButton) {
   updateClipboard();
 }
 
-// 2. Create Publisher
+// 2. Publisher
+// - create
 var publisherCreateButton = document.getElementById("publisher-create-button");
 var publisherNameInput = document.getElementById("publisher-name-input");
 var publisherDomainInput = document.getElementById("publisher-domain-input");
@@ -75,6 +78,40 @@ if (publisherCreateButton) {
       data: {
         name: publisherName,
         domain: publisherDomain
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
+  });
+}
+
+// - delete
+var publisherDeleteButton = document.getElementById("publisher-delete-button");
+
+if (publisherDeleteButton) {
+  publisherDeleteButton.addEventListener("click", function() {
+    var checkboxes = document.getElementsByClassName("uk-checkbox");
+    var publisherIDsToDelete = [];
+
+    for (var i=0; i<checkboxes.length; i+=1) {
+      var checkbox = checkboxes[i];
+
+      if (checkbox.checked) {
+        var row = checkbox.parentNode.parentNode;
+        var zoneID = parseInt(row.getAttribute("data-publisher-id"));
+
+        publisherIDsToDelete.push(zoneID);
+      }
+    }
+
+    console.log("publisherIDsToDelete:", publisherIDsToDelete);
+
+    $.ajax({
+      method: "POST",
+      url: "/publisher/delete",
+      data: {
+        ids: publisherIDsToDelete
       },
       success: function(data, status, xhr) {
         return window.location.reload();

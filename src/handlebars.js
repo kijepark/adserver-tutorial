@@ -38,7 +38,7 @@ module.exports = function() {
     for (var i=0; i<publishers.length; i+=1) {
       var publisher = publishers[i];
 
-      html += "<tr>";
+      html += "<tr data-publisher-id=" + publisher.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + publisher.name + " </td>";
       html += "  <td class='uk-text-nowrap'> " + publisher.zones.length + " </td>";
