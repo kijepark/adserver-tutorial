@@ -7,7 +7,9 @@
  * - create
  * - delete
  * 4. Create Advertiser
- * 5. Create Campaign
+ * 5. Campaign
+ * - create
+ * - delete
  * 6. Placement from Publisher
  * - create
  * - delete
@@ -204,7 +206,8 @@ if (advertiserCreateButton) {
   });
 }
 
-// 5. Create Campaign
+// 5. Campaign
+// - create
 var campaignCreateButton = document.getElementById("campaign-create-button");
 var campaignNameInput = document.getElementById("campaign-name-input");
 
@@ -224,6 +227,38 @@ if (campaignCreateButton) {
         return window.location.reload();
       }
     });    
+  });
+}
+
+// - delete
+var campaignDeleteButton = document.getElementById("campaign-delete-button");
+
+if (campaignDeleteButton) {
+  campaignDeleteButton.addEventListener("click", function() {
+    var checkboxes = document.getElementsByClassName("uk-checkbox");
+    var campaignIDsToDelete = [];
+
+    for (var i=0; i<checkboxes.length; i+=1) {
+      var checkbox = checkboxes[i];
+
+      if (checkbox.checked) {
+        var row = checkbox.parentNode.parentNode;
+        var campaignID = parseInt(row.getAttribute("data-campaign-id"));
+
+        campaignIDsToDelete.push(campaignID);
+      }
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/campaign/delete",
+      data: {
+        ids: campaignIDsToDelete
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
   });
 }
 

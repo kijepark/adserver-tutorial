@@ -98,6 +98,35 @@ router.post("/campaign/create", async function(req, res) {
   }
 });
 
+router.post("/campaign/delete", async function(req, res) {
+  try {
+    var campaignIDsToDelete = req.body.ids;
+
+    for (var i=0; i<campaignIDsToDelete.length; i+=1) {
+      // Find ad campaignAssignments related to the campaign and find ad items
+      var campaignID = campaignIDsToDelete[i];
+      var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
+      
+      for (var t=0; t<campaignAssignments.length; t+=1) {
+        var campaignAssignment = campaignAssignments[t];
+        var adItemID = campaignAssignment.advertisement.id;
+
+        await CampaignAssignment.delete({ "advertisement.id": adItemID });
+        await AdItem.delete({ id: adItemID });
+      }
+
+      // Find placements related to the campaign and delete it all
+      await Placement.delete({ "advertisement.id": campaignID });
+
+      await Campaign.delete({ id: campaignID });
+    }
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 router.post("/campaign/zone/assign", async function(req, res) {
   try {
     var campaignID = parseInt(req.body.campaign_id);

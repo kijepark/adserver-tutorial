@@ -66,5 +66,15 @@ module.exports = {
         return reject(error);
       });
     });
+  },
+  delete: function(query) {
+    return new Promise(function(resolve, reject) {
+      Campaign.deleteMany(query)
+      .then(res => {
+        if (res.deletedCount) console.log({ query }, "Deletes Campaign");
+        return resolve(res);
+      })
+      .catch(error => reject(error));
+    });
   }
 }
