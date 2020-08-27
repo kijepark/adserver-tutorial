@@ -154,4 +154,24 @@ router.post("/campaign/zone/assign", async function(req, res) {
   }
 });
 
+router.post("/campaign/zone/unassign", async function(req, res) {
+  try {
+    var zoneIDs = req.body.ids;
+    var campaignID = req.body.campaign_id;
+
+    for (var i=0; i<zoneIDs.length; i+=1) {
+      var zoneID = parseInt(zoneIDs[i]);
+      
+      await Placement.delete({
+        "zone.id": zoneID,
+        "advertisement.id": campaignID
+      });
+    }
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;

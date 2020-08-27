@@ -14,7 +14,9 @@
  * 7. Ad Item
  * - Create and assign it to Campaign
  * - Delete
- * 8. Create Placement from Advertiser 
+ * 8. Placement from Advertiser 
+ * - create
+ * - delete
  */
 
 // 1. Get Zone Tags
@@ -388,7 +390,8 @@ if (adItemDeleteButton) {
   });
 }
 
-// 8. Create Placement from Advertiser
+// 8. Placement from Advertiser 
+// - create
 var zoneAssignCreateModal = document.getElementById("zone-assign-create-modal");
 var zoneAssignCreateModalButton = document.getElementById("zone-assign-create-modal-button");
 
@@ -444,5 +447,39 @@ if (zoneAssignCreateModal) {
       zoneAssignListTBody.innerHTML = html;
       return addAssignButtonClickEvent();
     }
+  });
+}
+
+// - delete
+var zoneAssignDeleteButton = document.getElementById("zone-assign-delete-button");
+
+if (zoneAssignDeleteButton) {
+  zoneAssignDeleteButton.addEventListener("click", function() {
+    var campaignID = new URLSearchParams(window.location.search).get("campaign_id");
+    var checkboxes = document.querySelectorAll("#zone-assignment-list .uk-checkbox");
+    var zoneIDsToUnassign = [];
+
+    for (var i=0; i<checkboxes.length; i+=1) {
+      var checkbox = checkboxes[i];
+      
+      if (checkbox.checked) {
+        var row = checkbox.parentNode.parentNode;
+        var zoneID = parseInt(row.getAttribute("data-zone-id"));
+
+        zoneIDsToUnassign.push(zoneID);
+      }
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/campaign/zone/unassign",
+      data: {
+        ids: zoneIDsToUnassign,
+        campaign_id: campaignID
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
   });
 }

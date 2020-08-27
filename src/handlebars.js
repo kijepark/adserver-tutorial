@@ -204,7 +204,7 @@ module.exports = function() {
     for (var i=0; i<zones.length; i+=1) {
       var zone = zones[i];
 
-      html += "<tr>";
+      html += "<tr data-zone-id=" + zone.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + zone.name + " </td>";
       html += "  <td class='uk-text-nowrap'> " + zone.total_impressions + " </td>";
