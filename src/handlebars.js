@@ -136,7 +136,7 @@ module.exports = function() {
     for (var i=0; i<advertisers.length; i+=1) {
       var advertiser = advertisers[i];
 
-      html += "<tr>";
+      html += "<tr data-advertiser-id=" + advertiser.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + advertiser.name + " </td>";
       html += "  <td class='uk-text-nowrap'> " + advertiser.campaigns.length + " </td>";

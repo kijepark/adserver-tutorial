@@ -6,7 +6,9 @@
  * 3. Zone
  * - create
  * - delete
- * 4. Create Advertiser
+ * 4. Advertiser
+ * - create
+ * - delete
  * 5. Campaign
  * - create
  * - delete
@@ -185,7 +187,8 @@ if (zoneDeleteButton) {
   });
 }
 
-// 4. Create Advertiser
+// 4. Advertiser
+// - create
 var advertiserCreateButton = document.getElementById("advertiser-create-button");
 var advertiserNameInput = document.getElementById("advertiser-name-input");
 
@@ -198,6 +201,38 @@ if (advertiserCreateButton) {
       url: "/advertiser/create",
       data: {
         name: advertiserName
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
+      }
+    });
+  });
+}
+
+// - delete
+var advertiserDeleteButton = document.getElementById("advertiser-delete-button");
+
+if (advertiserDeleteButton) {
+  advertiserDeleteButton.addEventListener("click", function() {
+    var checkboxes = document.getElementsByClassName("uk-checkbox");
+    var advertiserIDsToDelete = [];
+
+    for (var i=0; i<checkboxes.length; i+=1) {
+      var checkbox = checkboxes[i];
+
+      if (checkbox.checked) {
+        var row = checkbox.parentNode.parentNode;
+        var advertiserID = parseInt(row.getAttribute("data-advertiser-id"));
+
+        advertiserIDsToDelete.push(advertiserID);
+      }
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/advertiser/delete",
+      data: {
+        ids: advertiserIDsToDelete
       },
       success: function(data, status, xhr) {
         return window.location.reload();
