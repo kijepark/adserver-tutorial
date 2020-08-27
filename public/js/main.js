@@ -11,7 +11,9 @@
  * 6. Placement from Publisher
  * - create
  * - delete
- * 7. Create Ad Item and assign it to Campaign
+ * 7. Ad Item
+ * - Create and assign it to Campaign
+ * - Delete
  * 8. Create Placement from Advertiser 
  */
 
@@ -317,7 +319,8 @@ if (campaignAssignDeleteButton) {
   });
 }
 
-// 7. Create Ad Item and assign it to Campaign
+// 7. Ad Item
+// - Create and assign it to Campaign
 var adItemCreateModal = document.getElementById("ad-item-create-modal");
 var adItemCreateButton = document.getElementById("ad-item-create-button");
 
@@ -348,6 +351,38 @@ if (adItemCreateModal) {
       },
       success: function(campaigns, status, xhr) {
         return window.location.reload(); 
+      }
+    });
+  });
+}
+
+// - Delete
+var adItemDeleteButton = document.getElementById("ad-item-delete-button");
+
+if (adItemDeleteButton) {
+  adItemDeleteButton.addEventListener("click", function() {
+    var checkboxes = document.querySelectorAll("#ad-item-list .uk-checkbox");
+    var adItemIDsToDelete = [];
+
+    for (var i=0; i<checkboxes.length; i+=1) {
+      var checkbox = checkboxes[i];
+      
+      if (checkbox.checked) {
+        var row = checkbox.parentNode.parentNode;
+        var adItemID = parseInt(row.getAttribute("data-ad-item-id"));
+
+        adItemIDsToDelete.push(adItemID);
+      }
+    }
+
+    $.ajax({
+      method: "POST",
+      url: "/aditem/delete",
+      data: {
+        ids: adItemIDsToDelete
+      },
+      success: function(data, status, xhr) {
+        return window.location.reload();
       }
     });
   });

@@ -53,7 +53,7 @@
     </p>
   </div>
 </div>
-<table class="uk-table uk-table-hover uk-table-left uk-table-divider">
+<table id="ad-item-list" class="uk-table uk-table-hover uk-table-left uk-table-divider">
   <thead>
     <tr>
       <th class="uk-table-shrink"></th>
@@ -66,6 +66,13 @@
     {{ adItemList ad_items }}
   </tbody>
 </table>
+<div class="uk-margin">
+  <button id="ad-item-delete-button" class="uk-button uk-button-default" type="button">
+    <span uk-icon="close" class="uk-icon uk-margin-small-right"></span>
+    <span class="uk-text-middle"> Delete </span>
+  </button>
+</div>
+
 <h4 class="uk-h4"> Zone Assignments </h4>
 <div class="uk-margin">
   <button id="zone-assign-create-modal-button" class="uk-button uk-button-default" uk-toggle="target: #zone-assign-create-modal" type="button">

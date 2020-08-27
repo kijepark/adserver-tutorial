@@ -36,5 +36,15 @@ module.exports = {
         return reject(error);
       });
     });
+  },
+  delete: function(query) {
+    return new Promise(function(resolve, reject) {
+      AdItem.deleteMany(query)
+      .then(res => {
+        if (res.deletedCount) console.log({ query }, "Deletes AdItem");
+        return resolve(res);
+      })
+      .catch(error => reject(error));
+    });
   }
 }

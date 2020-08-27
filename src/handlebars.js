@@ -181,7 +181,7 @@ module.exports = function() {
     for (var i=0; i<adItems.length; i+=1) {
       var adItem = adItems[i];
 
-      html += "<tr>";
+      html += "<tr data-ad-item-id=" + adItem.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
       html += "  <td class='uk-text-nowrap'> " + adItem.name + " </td>";
       html += "  <td class='uk-text-nowrap'> " + adItem.total_impressions + " </td>";

@@ -36,4 +36,22 @@ router.post("/aditem/create", async function(req, res) {
   }
 });
 
+router.post("/aditem/delete", async function(req, res) {
+  try {
+    var adItemIDsToDelete = req.body.ids;
+    
+    // Find campaignAssignments related to the ad item and delete it all
+    for (var i=0; i<adItemIDsToDelete.length; i+=1) {
+      var adItemID = adItemIDsToDelete[i];
+
+      await CampaignAssignment.delete({ "advertisement.id": adItemID });
+      await AdItem.delete({ id: adItemID });
+    }
+
+    return res.send();
+  }catch(error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;
