@@ -1,32 +1,28 @@
-var Placement = require("./../models/placement");
+import Placement from "./../models/placement";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       Placement.find(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Placements");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },  
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       Placement.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates Placement");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  delete: function(query) {
-    return new Promise(function(resolve, reject) {
+  delete: query => {
+    return new Promise((resolve, reject) => {
       Placement.deleteMany(query)
       .then(res => {
         if (res.deletedCount) console.log({ query }, "Deletes Placement");

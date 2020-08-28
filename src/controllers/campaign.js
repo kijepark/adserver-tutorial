@@ -1,20 +1,18 @@
-var Campaign = require("./../models/campaign");
+import Campaign from "./../models/campaign";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       Campaign.find(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Campaigns");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  listAndCampaignAssignments: function(query) {
-    return new Promise(function(resolve, reject) {
+  listAndCampaignAssignments: query => {
+    return new Promise((resolve, reject) => {
       Campaign.aggregate([
         { $match: query },
         {
@@ -34,41 +32,35 @@ module.exports = {
           }
         }
       ])
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Campaigns and Its Assignments");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  retrieve: function(query) {
-    return new Promise(function(resolve, reject) {
+  retrieve: query => {
+    return new Promise((resolve, reject) => {
       Campaign.findOne(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Retrieves Campaign");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       Campaign.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates Campaign");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  delete: function(query) {
-    return new Promise(function(resolve, reject) {
+  delete: query => {
+    return new Promise((resolve, reject) => {
       Campaign.deleteMany(query)
       .then(res => {
         if (res.deletedCount) console.log({ query }, "Deletes Campaign");

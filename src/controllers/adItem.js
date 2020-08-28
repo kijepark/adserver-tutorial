@@ -1,44 +1,38 @@
-var AdItem = require("./../models/adItem");
+import AdItem from "./../models/adItem";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       AdItem.find(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists AdItems");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  retrieve: function(query) {
-    return new Promise(function(resolve, reject) {
+  retrieve: query => {
+    return new Promise((resolve, reject) => {
       AdItem.findOne(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Retrieves AdItem");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       AdItem.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates AdItem");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  delete: function(query) {
-    return new Promise(function(resolve, reject) {
+  delete: query => {
+    return new Promise((resolve, reject) => {
       AdItem.deleteMany(query)
       .then(res => {
         if (res.deletedCount) console.log({ query }, "Deletes AdItem");

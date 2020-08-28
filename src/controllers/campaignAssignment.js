@@ -1,32 +1,28 @@
-var CampaignAssignment = require("./../models/campaignAssignment");
+import CampaignAssignment from "./../models/campaignAssignment";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       CampaignAssignment.find(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists CampaignAssignments");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },  
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       CampaignAssignment.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates CampaignAssignment");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  delete: function(query) {
-    return new Promise(function(resolve, reject) {
+  delete: query => {
+    return new Promise((resolve, reject) => {
       CampaignAssignment.deleteMany(query)
       .then(res => {
         if (res.deletedCount) console.log({ query }, "Deletes CampaignAssignment");

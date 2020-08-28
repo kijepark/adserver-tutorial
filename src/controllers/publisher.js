@@ -1,20 +1,18 @@
-var Publisher = require("./../models/publisher");
+import Publisher from "./../models/publisher";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       Publisher.find(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Publishers");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  listAndZones: function(query) {
-    return new Promise(function(resolve, reject) {
+  listAndZones: query => {
+    return new Promise((resolve, reject) => {
       Publisher.aggregate([
         { $match: query },
         {
@@ -26,41 +24,35 @@ module.exports = {
           }
         }
       ])
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Publishers and Zones");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  retrieve: function(query) {
-    return new Promise(function(resolve, reject) {
+  retrieve: query => {
+    return new Promise((resolve, reject) => {
       Publisher.findOne(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Retrieves Publisher");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       Publisher.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates Publisher");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  delete: function(query) {
-    return new Promise(function(resolve, reject) {
+  delete: query => {
+    return new Promise((resolve, reject) => {
       Publisher.deleteMany(query)
       .then(res => {
         if (res.deletedCount) console.log({ query }, "Deletes Publisher");

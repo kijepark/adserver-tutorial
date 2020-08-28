@@ -1,20 +1,18 @@
-var Zone = require("./../models/zone");
+import Zone from "./../models/zone";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       Zone.find(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Zones");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  listAndPlacements: function(query) {
-    return new Promise(function(resolve, reject) {
+  listAndPlacements: query => {
+    return new Promise((resolve, reject) => {
       Zone.aggregate([
         { $match: query },
         {
@@ -26,41 +24,35 @@ module.exports = {
           }
         }
       ])
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Zones and its Placements");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  retrieve: function(query) {
-    return new Promise(function(resolve, reject) {
+  retrieve: query => {
+    return new Promise((resolve, reject) => {
       Zone.findOne(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Retrieves Zone");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       Zone.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates Zone");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  delete: function(query) {
-    return new Promise(function(resolve, reject) {
+  delete: query => {
+    return new Promise((resolve, reject) => {
       Zone.deleteMany(query)
       .then(res => {
         if (res.deletedCount) console.log({ query }, "Deletes Zone");

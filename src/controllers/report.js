@@ -1,52 +1,44 @@
-var Report = require("./../models/report");
+import Report from "./../models/report";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       Report.find(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Reports");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  retrieve: function(query) {
-    return new Promise(function(resolve, reject) {
+  retrieve: query => {
+    return new Promise((resolve, reject) => {
       Report.findOne(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Retrieves Report");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       Report.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates Report");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  update: function(query, document) {
-    return new Promise(function(resolve, reject) {
+  update: (query, document) => {
+    return new Promise((resolve, reject) => {
       Report.findOneAndUpdate(query, document)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Updates Report");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   }
 }

@@ -1,20 +1,18 @@
-var Advertiser = require("./../models/advertiser");
+import Advertiser from "./../models/advertiser";
 
-module.exports = {
-  list: function(query) {
-    return new Promise(function(resolve, reject) {
+export default {
+  list: query => {
+    return new Promise((resolve, reject) => {
       Advertiser.find(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Advertisers");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  listAndCampaigns: function(query) {
-    return new Promise(function(resolve, reject) {
+  listAndCampaigns: query => {
+    return new Promise((resolve, reject) => {
       Advertiser.aggregate([
         { $match: query },
         {
@@ -26,41 +24,35 @@ module.exports = {
           }
         }
       ])
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Lists Advertisers and Campaigns");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  retrieve: function(query) {
-    return new Promise(function(resolve, reject) {
+  retrieve: query => {
+    return new Promise((resolve, reject) => {
       Advertiser.findOne(query).lean().exec()
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Retrieves Advertiser");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  create: function(query) {
-    return new Promise(function(resolve, reject) {
+  create: query => {
+    return new Promise((resolve, reject) => {
       Advertiser.create(query)
-      .then(function(res) {
+      .then(res => {
         if (res) console.log({ query }, "Creates Advertiser");
         return resolve(res);
       })
-      .catch(function(error) {
-        return reject(error);
-      });
+      .catch(error => reject(error));
     });
   },
-  delete: function(query) {
-    return new Promise(function(resolve, reject) {
+  delete: query => {
+    return new Promise((resolve, reject) => {
       Advertiser.deleteMany(query)
       .then(res => {
         if (res.deletedCount) console.log({ query }, "Deletes Advertiser");
