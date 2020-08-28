@@ -1,29 +1,29 @@
-var Publisher = require("./controllers/publisher");
-var Zone = require("./controllers/zone");
-var Advertiser = require("./controllers/advertiser");
-var Campaign = require("./controllers/campaign");
-var AdItem = require("./controllers/adItem");
-var CampaignAssignment = require("./controllers/campaignAssignment");
-var Placement = require("./controllers/placement");
+import Publisher from "./controllers/publisher";
+import Zone from "./controllers/zone";
+import Advertiser from "./controllers/advertiser";
+import Campaign from "./controllers/campaign";
+import AdItem from "./controllers/adItem";
+import CampaignAssignment from "./controllers/campaignAssignment";
+import Placement from "./controllers/placement";
 
-module.exports = async function() {
-  var publishers = await Publisher.list({ });
-  var zones = await Zone.list({ });
-  var advertisers = await Advertiser.list({ });
-  var campaigns = await Campaign.list({ });
-  var adItems = await AdItem.list({ });
-  var campaignAssignments = await CampaignAssignment.list({ });
-  var placements = await Placement.list({ });
+export default async() => {
+  const publishers = await Publisher.list({ });
+  const zones = await Zone.list({ });
+  const advertisers = await Advertiser.list({ });
+  const campaigns = await Campaign.list({ });
+  const adItems = await AdItem.list({ });
+  const campaignAssignments = await CampaignAssignment.list({ });
+  const placements = await Placement.list({ });
 
   if (!publishers.length && !zones.length
     && !advertisers.length && !campaigns.length
     && !adItems.length && !campaignAssignments.length
     && !placements.length) {
-    var publisher = await Publisher.create({ name: "Default Publisher" });
-    var zone = await Zone.create({ name: "Default Zone", publisher: publisher.id });
-    var advertiser = await Advertiser.create({ name: "Default Advertiser" });
-    var campaign = await Campaign.create({ name: "Default Campaign", advertiser: advertiser.id });
-    var adItem = await AdItem.create({
+    const publisher = await Publisher.create({ name: "Default Publisher" });
+    const zone = await Zone.create({ name: "Default Zone", publisher: publisher.id });
+    const advertiser = await Advertiser.create({ name: "Default Advertiser" });
+    const campaign = await Campaign.create({ name: "Default Campaign", advertiser: advertiser.id });
+    const adItem = await AdItem.create({
       name: "Default Ad Item",
       width: 300,
       height: 250,
@@ -31,7 +31,7 @@ module.exports = async function() {
       creative_url: "https://i.ibb.co/kqR8Z8r/banner.jpg",
       html_target: "_blank"
     });
-    var campaignAssignment = await CampaignAssignment.create({
+    const campaignAssignment = await CampaignAssignment.create({
       advertisement: {
         id: adItem.id
       },
@@ -39,7 +39,7 @@ module.exports = async function() {
         id: campaign.id
       }
     });
-    var placement = await Placement.create({
+    const placement = await Placement.create({
       zone: {
         id: zone.id
       },

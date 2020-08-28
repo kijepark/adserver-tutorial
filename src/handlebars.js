@@ -1,18 +1,18 @@
-var Handlebars = require("handlebars");
+import Handlebars from "handlebars";
 
-module.exports = function() {
-  Handlebars.registerHelper("publishersAndZones", function(publishers) {
-    var navHtml = "<ul class='uk-nav-sub'>";
+export default () => {
+  Handlebars.registerHelper("publishersAndZones", publishers => {
+    let navHtml = "<ul class='uk-nav-sub'>";
 
-    for (var i=0; i<publishers.length; i+=1) {
-      var publisher = publishers[i];
+    for (let i=0; i<publishers.length; i+=1) {
+      const publisher = publishers[i];
 
       navHtml += "<li>";
       navHtml += "  <a href='/publisher/view?publisher_id=" + publisher.id + "'> " + publisher.name + " </a>";
 
-      var subNavHtml = "<ul class='uk-nav-sub'>";
-      for (var t=0; t<publisher.zones.length; t+=1) {
-        var zone = publisher.zones[t];
+      let subNavHtml = "<ul class='uk-nav-sub'>";
+      for (let t=0; t<publisher.zones.length; t+=1) {
+        const zone = publisher.zones[t];
         
         subNavHtml += "<li>";
         subNavHtml += "  <a href='/zone/view?zone_id=" + zone.id + "'>";
@@ -32,11 +32,11 @@ module.exports = function() {
     return new Handlebars.SafeString(navHtml);
   });
 
-  Handlebars.registerHelper("publisherList", function(publishers) {
-    var html = "";
+  Handlebars.registerHelper("publisherList", publishers => {
+    let html = "";
 
-    for (var i=0; i<publishers.length; i+=1) {
-      var publisher = publishers[i];
+    for (let i=0; i<publishers.length; i+=1) {
+      const publisher = publishers[i];
 
       html += "<tr data-publisher-id=" + publisher.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
@@ -54,11 +54,11 @@ module.exports = function() {
     return new Handlebars.SafeString(html);
   });
 
-  Handlebars.registerHelper("zoneList", function(zones) {
-    var html = "";
+  Handlebars.registerHelper("zoneList", (zones) => {
+    let html = "";
 
-    for (var i=0; i<zones.length; i+=1) {
-      var zone = zones[i];
+    for (let i=0; i<zones.length; i+=1) {
+      const zone = zones[i];
 
       html += "<tr data-zone-id=" + zone.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
@@ -77,11 +77,11 @@ module.exports = function() {
     return new Handlebars.SafeString(html);
   });
 
-  Handlebars.registerHelper("assignedCampaignList", function(assignedCampaigns) {
-    var html = "";
+  Handlebars.registerHelper("assignedCampaignList", (assignedCampaigns) => {
+    let html = "";
 
-    for (var i=0; i<assignedCampaigns.length; i+=1) {
-      var assignedCampaign = assignedCampaigns[i];
+    for (let i=0; i<assignedCampaigns.length; i+=1) {
+      const assignedCampaign = assignedCampaigns[i];
 
       html += "<tr data-campaign-id=" + assignedCampaign.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
@@ -99,18 +99,18 @@ module.exports = function() {
     return new Handlebars.SafeString(html);
   });
 
-  Handlebars.registerHelper("advertisersAndCampaigns", function(advertisers) {
-    var navHtml = "<ul class='uk-nav-sub'>";
+  Handlebars.registerHelper("advertisersAndCampaigns", (advertisers) => {
+    let navHtml = "<ul class='uk-nav-sub'>";
 
-    for (var i=0; i<advertisers.length; i+=1) {
-      var advertiser = advertisers[i];
+    for (let i=0; i<advertisers.length; i+=1) {
+      const advertiser = advertisers[i];
 
       navHtml += "<li>";
       navHtml += "  <a href='/advertiser/view?advertiser_id=" + advertiser.id + "'> " + advertiser.name + " </a>";
 
-      var subNavHtml = "<ul class='uk-nav-sub'>";
-      for (var t=0; t<advertiser.campaigns.length; t+=1) {
-        var campaign = advertiser.campaigns[t];
+      let subNavHtml = "<ul class='uk-nav-sub'>";
+      for (let t=0; t<advertiser.campaigns.length; t+=1) {
+        const campaign = advertiser.campaigns[t];
         
         subNavHtml += "<li>";
         subNavHtml += "  <a href='/campaign/view?campaign_id=" + campaign.id + "'>";
@@ -130,11 +130,11 @@ module.exports = function() {
     return new Handlebars.SafeString(navHtml);
   });
 
-  Handlebars.registerHelper("advertiserList", function(advertisers) {
-    var html = "";
+  Handlebars.registerHelper("advertiserList", (advertisers) => {
+    let html = "";
 
-    for (var i=0; i<advertisers.length; i+=1) {
-      var advertiser = advertisers[i];
+    for (let i=0; i<advertisers.length; i+=1) {
+      const advertiser = advertisers[i];
 
       html += "<tr data-advertiser-id=" + advertiser.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
@@ -152,11 +152,11 @@ module.exports = function() {
     return new Handlebars.SafeString(html);
   });
 
-  Handlebars.registerHelper("campaignList", function(campaigns) {
-    var html = "";
+  Handlebars.registerHelper("campaignList", (campaigns) => {
+    let html = "";
 
-    for (var i=0; i<campaigns.length; i+=1) {
-      var campaign = campaigns[i];
+    for (let i=0; i<campaigns.length; i+=1) {
+      const campaign = campaigns[i];
 
       html += "<tr data-campaign-id=" + campaign.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
@@ -175,11 +175,11 @@ module.exports = function() {
     return new Handlebars.SafeString(html);
   });
 
-  Handlebars.registerHelper("adItemList", function(adItems) {
-    var html = "";
+  Handlebars.registerHelper("adItemList", (adItems) => {
+    let html = "";
 
-    for (var i=0; i<adItems.length; i+=1) {
-      var adItem = adItems[i];
+    for (let i=0; i<adItems.length; i+=1) {
+      const adItem = adItems[i];
 
       html += "<tr data-ad-item-id=" + adItem.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";
@@ -198,11 +198,11 @@ module.exports = function() {
     return new Handlebars.SafeString(html);
   });
 
-  Handlebars.registerHelper("zoneAssignmentList", function(zones) {
-    var html = "";
+  Handlebars.registerHelper("zoneAssignmentList", (zones) => {
+    let html = "";
 
-    for (var i=0; i<zones.length; i+=1) {
-      var zone = zones[i];
+    for (let i=0; i<zones.length; i+=1) {
+      const zone = zones[i];
 
       html += "<tr data-zone-id=" + zone.id + ">";
       html += "  <td> <input class='uk-checkbox' type='checkbox'></td> </td>";

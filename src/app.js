@@ -1,24 +1,21 @@
-var express = require("express");
-var expressHandlebars = require("express-handlebars");
-var mongoose = require("mongoose");
-var mongooseSequence = require("mongoose-sequence")(mongoose);
-var bodyParser = require("body-parser");
+import express from "express";
+import expressHandlebars from "express-handlebars";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
 
-// Declare Global Variables
-global.mongooseSequence = mongooseSequence;
+import config from "./../config.json";
+import router from "./router";
+import init from "./init";
+import handlebars from "./handlebars";
 
-var config = require("./../config.json");
-var router = require("./router");
-var init = require("./init");
-var handlebars = require("./handlebars")();
-
-var app = express();
-var port = 3000;
+const app = express();
+const port = 3000;
+handlebars();
 
 // Connect to Database
-var databaseUri = config.database.uri;
-var databaseOptions = config.database.options;
-mongoose.connect(databaseUri, databaseOptions, async function(error) {
+const databaseUri = config.database.uri;
+const databaseOptions = config.database.options;
+mongoose.connect(databaseUri, databaseOptions, async(error) => {
   if (error) {
     console.error(error);
     return;
@@ -43,18 +40,18 @@ app.use(express.static("public"));
 app.use(router);
 
 // Error Handling 404, 500
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   console.warn("404 Page Not Found", req.url);
   res.sendStatus(404);
   return;
 });
 
-app.use(function(error, req, res, next) {
+app.use((error, req, res, next) => {
   console.error(error);
   res.sendStatus(500);
   return;
 });
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log("Server is running on port", port);
 });
