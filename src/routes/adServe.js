@@ -56,7 +56,7 @@ router.get("/adserve", async(req, res) => {
     // use Random() instead
     const adItem = adItems[Math.floor(Math.random() * adItems.length)];
     const adItemID = adItem.id;
-    const response = null;
+    let response = null;
 
     // Tracking impressions
     let query = {
