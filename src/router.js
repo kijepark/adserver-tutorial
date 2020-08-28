@@ -1,15 +1,14 @@
-var express = require("express");
+import express from "express";
+import dashboardRoute from "./routes/dashboard";
+import publisherRoute from "./routes/publisher";
+import zoneRoute from "./routes/zone";
+import advertiserRoute from "./routes/advertiser";
+import campaignRoute from "./routes/campaign";
+import adServeRoute from "./routes/adServe";
+import placementRoute from "./routes/placement";
+import adItemRoute from "./routes/adItem";
 
-var dashboardRoute = require("./routes/dashboard");
-var publisherRoute = require("./routes/publisher");
-var zoneRoute = require("./routes/zone");
-var advertiserRoute = require("./routes/advertiser");
-var campaignRoute = require("./routes/campaign");
-var adServeRoute = require("./routes/adServe");
-var placementRoute = require("./routes/placement");
-var adItemRoute = require("./routes/adItem");
-
-var router = express.Router();
+const router = express.Router();
 
 router.use(dashboardRoute);
 router.use(publisherRoute);
@@ -20,4 +19,4 @@ router.use(adServeRoute);
 router.use(placementRoute);
 router.use(adItemRoute);
 
-module.exports = router;
+export default router;
