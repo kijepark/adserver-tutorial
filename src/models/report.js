@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
+import MongooseSequence from "mongoose-sequence";
 
+const mongooseSequence = MongooseSequence(mongoose);
 const schema = new mongoose.Schema({
   placement: {
     type: Number,
