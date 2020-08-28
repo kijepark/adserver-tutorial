@@ -2,7 +2,7 @@
   "name": "adserver-tutorial",
   "description": "Adserver Tutorial for platform developers",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node dist/app.js",
     "dev": "nodemon --exec babel-node --presets env,stage-2 src/app.js",
     "build": "babel -d ./dist ./src -s"
   },
