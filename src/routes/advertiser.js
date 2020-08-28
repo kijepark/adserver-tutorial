@@ -1,18 +1,18 @@
-var express = require("express");
+import express from "express";
 
-var Publisher = require("./../controllers/publisher");
-var Advertiser = require("./../controllers/advertiser");
-var Campaign = require("./../controllers/campaign");
-var CampaignAssignment = require("./../controllers/campaignAssignment");
-var AdItem = require("./../controllers/adItem");
-var Placement = require("./../controllers/placement");
+import Publisher from "./../controllers/publisher";
+import Advertiser from "./../controllers/advertiser";
+import Campaign from "./../controllers/campaign";
+import CampaignAssignment from "./../controllers/campaignAssignment";
+import AdItem from "./../controllers/adItem";
+import Placement from "./../controllers/placement";
 
-var router = express.Router();
+const router = express.Router();
 
-router.get("/advertiser/list", async function(req, res, next) {
+router.get("/advertiser/list", async(req, res, next) => {
   try {
-    var publishersAndZones = await Publisher.listAndZones({ });
-    var advertisersAndZones = await Advertiser.listAndCampaigns({ });
+    const publishersAndZones = await Publisher.listAndZones({ });
+    const advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
     return res.render("advertiser/list", {
       publishers: publishersAndZones,
@@ -23,14 +23,14 @@ router.get("/advertiser/list", async function(req, res, next) {
   }
 });
 
-router.get("/advertiser/view", async function(req, res, next) {
+router.get("/advertiser/view", async(req, res, next) => {
   try {
-    var publishersAndZones = await Publisher.listAndZones({ });
-    var advertisersAndZones = await Advertiser.listAndCampaigns({ });
+    const publishersAndZones = await Publisher.listAndZones({ });
+    const advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
-    var advertiserID = parseInt(req.query.advertiser_id);
-    var advertiser = await Advertiser.retrieve({ id: advertiserID });
-    var campaigns = await Campaign.listAndCampaignAssignments({ advertiser: advertiserID });
+    const advertiserID = parseInt(req.query.advertiser_id);
+    const advertiser = await Advertiser.retrieve({ id: advertiserID });
+    const campaigns = await Campaign.listAndCampaignAssignments({ advertiser: advertiserID });
 
     return res.render("advertiser/view", {
       publishers: publishersAndZones,
@@ -43,9 +43,9 @@ router.get("/advertiser/view", async function(req, res, next) {
   }
 });
 
-router.post("/advertiser/create", async function(req, res) {
+router.post("/advertiser/create", async(req, res) => {
   try {
-    var { name } = req.body;
+    const { name } = req.body;
 
     await Advertiser.create({
       name: name
@@ -57,21 +57,21 @@ router.post("/advertiser/create", async function(req, res) {
   }
 });
 
-router.post("/advertiser/delete", async function(req, res) {
+router.post("/advertiser/delete", async(req, res) => {
   try {
-    var advertiserIDsToDelete = req.body.ids;
+    const advertiserIDsToDelete = req.body.ids;
 
-    for (var i=0; i<advertiserIDsToDelete.length; i+=1) {
-      var advertiserID = advertiserIDsToDelete[i];
-      var campaigns = await Campaign.list({ advertiser: advertiserID });
+    for (let i=0; i<advertiserIDsToDelete.length; i+=1) {
+      const advertiserID = advertiserIDsToDelete[i];
+      const campaigns = await Campaign.list({ advertiser: advertiserID });
 
-      for (var c=0; c<campaigns.length; c+=1) {
-        var campaignID = campaigns[c].id;
-        var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
+      for (let c=0; c<campaigns.length; c+=1) {
+        const campaignID = campaigns[c].id;
+        const campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
 
-        for (var t=0; t<campaignAssignments.length; t+=1) {
-          var campaignAssignment = campaignAssignments[t];
-          var adItemID = campaignAssignment.advertisement.id;
+        for (let t=0; t<campaignAssignments.length; t+=1) {
+          const campaignAssignment = campaignAssignments[t];
+          const adItemID = campaignAssignment.advertisement.id;
   
           await CampaignAssignment.delete({ "advertisement.id": adItemID });
           await AdItem.delete({ id: adItemID });
@@ -92,4 +92,4 @@ router.post("/advertiser/delete", async function(req, res) {
   }
 });
 
-module.exports = router;
+export default router;

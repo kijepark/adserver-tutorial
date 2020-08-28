@@ -1,14 +1,14 @@
-var express = require("express");
+import express from "express";
 
-var Publisher = require("./../controllers/publisher");
-var Advertiser = require("./../controllers/advertiser");
+import Publisher from "./../controllers/publisher";
+import Advertiser from "./../controllers/advertiser";
 
-var router = express.Router();
+const router = express.Router();
 
-router.get("/", async function(req, res, next) {
+router.get("/", async(req, res, next) => {
   try {
-    var publishersAndZones = await Publisher.listAndZones({ });
-    var advertisersAndZones = await Advertiser.listAndCampaigns({ });
+    const publishersAndZones = await Publisher.listAndZones({ });
+    const advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
     return res.render("dashboard", {
       publishers: publishersAndZones,
@@ -19,4 +19,4 @@ router.get("/", async function(req, res, next) {
   }
 });
 
-module.exports = router;
+export default router;

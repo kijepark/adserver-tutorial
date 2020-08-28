@@ -1,41 +1,41 @@
-var express = require("express");
+import express from "express";
 
-var Publisher = require("./../controllers/publisher");
-var Campaign = require("./../controllers/campaign");
-var CampaignAssignment = require("./../controllers/campaignAssignment");
-var AdItem = require("./../controllers/adItem");
-var Placement = require("./../controllers/placement");
-var Zone = require("./../controllers/zone");
-var Advertiser = require("./../controllers/advertiser");
-var Report = require("./../controllers/report");
+import Publisher from "./../controllers/publisher";
+import Campaign from "./../controllers/campaign";
+import CampaignAssignment from "./../controllers/campaignAssignment";
+import AdItem from "./../controllers/adItem";
+import Placement from "./../controllers/placement";
+import Zone from "./../controllers/zone";
+import Advertiser from "./../controllers/advertiser";
+import Report from "./../controllers/report";
 
-var router = express.Router();
+const router = express.Router();
 
-router.get("/campaign/view", async function(req, res, next) {
+router.get("/campaign/view", async(req, res, next) => {
   try {
-    var publishersAndZones = await Publisher.listAndZones({ });
-    var advertisersAndZones = await Advertiser.listAndCampaigns({ });
+    const publishersAndZones = await Publisher.listAndZones({ });
+    const advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
-    var campaignID = parseInt(req.query.campaign_id);
-    var campaign = await Campaign.retrieve({ id: campaignID });
+    const campaignID = parseInt(req.query.campaign_id);
+    const campaign = await Campaign.retrieve({ id: campaignID });
 
-    var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
-    var adItems = [];
+    const campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
+    const adItems = [];
 
-    for (var i=0; i<campaignAssignments.length; i+=1) {
-      var campaignAssignment = campaignAssignments[i];
-      var adItem = await AdItem.retrieve({ id: campaignAssignment.advertisement.id });
+    for (let i=0; i<campaignAssignments.length; i+=1) {
+      const campaignAssignment = campaignAssignments[i];
+      const adItem = await AdItem.retrieve({ id: campaignAssignment.advertisement.id });
 
       // Add total impressions and clicks regarding campaign
-      var reports = await Report.list({
+      const reports = await Report.list({
         "ad_item.id": adItem.id,
         "campaign.id": campaignID
       });
 
-      var totalImpressions = 0;
-      var clicks = 0;
-      for (var t=0; t<reports.length; t+=1) {
-        var report = reports[t];
+      let totalImpressions = 0;
+      let clicks = 0;
+      for (let t=0; t<reports.length; t+=1) {
+        const report = reports[t];
 
         totalImpressions += report.impressions;
         clicks += report.clicks;
@@ -46,22 +46,22 @@ router.get("/campaign/view", async function(req, res, next) {
       adItems.push(adItem);
     }
 
-    var placements = await Placement.list({ "advertisement.id": campaignID });
-    var zones = [];
+    const placements = await Placement.list({ "advertisement.id": campaignID });
+    const zones = [];
     
-    for (var i=0; i<placements.length; i+=1) {
-      var placement = placements[i];
-      var zone = await Zone.retrieve({ id: placement.zone.id });
+    for (let i=0; i<placements.length; i+=1) {
+      const placement = placements[i];
+      const zone = await Zone.retrieve({ id: placement.zone.id });
 
       // Add total impressions and clicks regarding Placement
-      var reports = await Report.list({
+      const reports = await Report.list({
         "placement": placement.id,
         "zone.id": zone.id
       });
 
-      var totalImpressions = 0;
-      for (var t=0; t<reports.length; t+=1) {
-        var report = reports[t];
+      let totalImpressions = 0;
+      for (let t=0; t<reports.length; t+=1) {
+        const report = reports[t];
 
         totalImpressions += report.impressions;
       }
@@ -82,10 +82,10 @@ router.get("/campaign/view", async function(req, res, next) {
   }
 });
 
-router.post("/campaign/create", async function(req, res) {
+router.post("/campaign/create", async(req, res) => {
   try {
-    var advertiserID = req.body.advertiser_id;
-    var { name } = req.body;
+    const advertiserID = req.body.advertiser_id;
+    const { name } = req.body;
 
     await Campaign.create({
       advertiser: advertiserID,
@@ -98,18 +98,18 @@ router.post("/campaign/create", async function(req, res) {
   }
 });
 
-router.post("/campaign/delete", async function(req, res) {
+router.post("/campaign/delete", async(req, res) => {
   try {
-    var campaignIDsToDelete = req.body.ids;
+    const campaignIDsToDelete = req.body.ids;
 
-    for (var i=0; i<campaignIDsToDelete.length; i+=1) {
+    for (let i=0; i<campaignIDsToDelete.length; i+=1) {
       // Find ad campaignAssignments related to the campaign and find ad items
-      var campaignID = campaignIDsToDelete[i];
-      var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
+      const campaignID = campaignIDsToDelete[i];
+      const campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
       
-      for (var t=0; t<campaignAssignments.length; t+=1) {
-        var campaignAssignment = campaignAssignments[t];
-        var adItemID = campaignAssignment.advertisement.id;
+      for (let t=0; t<campaignAssignments.length; t+=1) {
+        const campaignAssignment = campaignAssignments[t];
+        const adItemID = campaignAssignment.advertisement.id;
 
         await CampaignAssignment.delete({ "advertisement.id": adItemID });
         await AdItem.delete({ id: adItemID });
@@ -127,17 +127,17 @@ router.post("/campaign/delete", async function(req, res) {
   }
 });
 
-router.post("/campaign/zone/assign", async function(req, res) {
+router.post("/campaign/zone/assign", async(req, res) => {
   try {
-    var campaignID = parseInt(req.body.campaign_id);
-    var campaign = await Campaign.retrieve({ id: campaignID });
+    const campaignID = parseInt(req.body.campaign_id);
+    const campaign = await Campaign.retrieve({ id: campaignID });
 
-    var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaign.id });
-    var adItemSizes = [];
+    const campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaign.id });
+    const adItemSizes = [];
 
-    for (var i=0; i<campaignAssignments.length; i+=1) {
-      var campaignAssignment = campaignAssignments[i];
-      var adItem = await AdItem.retrieve({
+    for (let i=0; i<campaignAssignments.length; i+=1) {
+      const campaignAssignment = campaignAssignments[i];
+      const adItem = await AdItem.retrieve({
         id: campaignAssignment.advertisement.id
       });
       
@@ -147,14 +147,14 @@ router.post("/campaign/zone/assign", async function(req, res) {
       });
     }
 
-    var eligibleZones = [];
-    var zones = await Zone.list({ });
+    const eligibleZones = [];
+    const zones = await Zone.list({ });
 
-    for (var i=0; i<zones.length; i+=1) {
-      var zone = zones[i];
+    for (let i=0; i<zones.length; i+=1) {
+      const zone = zones[i];
 
-      for (var t=0; t<adItemSizes.length; t+=1) {
-        var adItemSize = adItemSizes[t];
+      for (let t=0; t<adItemSizes.length; t+=1) {
+        const adItemSize = adItemSizes[t];
 
         if (zone.width === adItemSize.width && zone.height === adItemSize.height) {
           if (eligibleZones.indexOf(zone) == -1) {
@@ -164,10 +164,10 @@ router.post("/campaign/zone/assign", async function(req, res) {
       }
     }
 
-    var response = [];
-    for (var i=0; i<eligibleZones.length; i+=1) {
-      var eligibleZone = eligibleZones[i];
-      var publisher = await Publisher.retrieve({ id: eligibleZone.publisher });
+    const response = [];
+    for (let i=0; i<eligibleZones.length; i+=1) {
+      const eligibleZone = eligibleZones[i];
+      const publisher = await Publisher.retrieve({ id: eligibleZone.publisher });
 
       response.push({
         id: eligibleZone.id,
@@ -183,13 +183,13 @@ router.post("/campaign/zone/assign", async function(req, res) {
   }
 });
 
-router.post("/campaign/zone/unassign", async function(req, res) {
+router.post("/campaign/zone/unassign", async(req, res) => {
   try {
-    var zoneIDs = req.body.ids;
-    var campaignID = req.body.campaign_id;
+    const zoneIDs = req.body.ids;
+    const campaignID = req.body.campaign_id;
 
-    for (var i=0; i<zoneIDs.length; i+=1) {
-      var zoneID = parseInt(zoneIDs[i]);
+    for (let i=0; i<zoneIDs.length; i+=1) {
+      const zoneID = parseInt(zoneIDs[i]);
       
       await Placement.delete({
         "zone.id": zoneID,
@@ -203,4 +203,4 @@ router.post("/campaign/zone/unassign", async function(req, res) {
   }
 });
 
-module.exports = router;
+export default router;

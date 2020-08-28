@@ -1,22 +1,22 @@
-var express = require("express");
+import express from "express";
 
-var AdItem = require("./../controllers/adItem");
-var CampaignAssignment = require("./../controllers/campaignAssignment");
+import AdItem from "./../controllers/adItem";
+import CampaignAssignment from "./../controllers/campaignAssignment";
 
-var router = express.Router();
+const router = express.Router();
 
-router.post("/aditem/create", async function(req, res) {
+router.post("/aditem/create", async(req, res) => {
   try {
-    var campaignID = req.body.campaign_id;
-    var name = req.body.name;
-    var location = req.body.link;
-    var creativeUrl = req.body.image_url;
-    var size = req.body.size;
-    var width = size.split("x")[0];
-    var height = size.split("x")[1];
-    var htmlTarget = req.body.html_target;
+    const campaignID = req.body.campaign_id;
+    const name = req.body.name;
+    const location = req.body.link;
+    const creativeUrl = req.body.image_url;
+    const size = req.body.size;
+    const width = size.split("x")[0];
+    const height = size.split("x")[1];
+    const htmlTarget = req.body.html_target;
 
-    var adItem = await AdItem.create({
+    const adItem = await AdItem.create({
       name: name,
       location: location,
       creative_url: creativeUrl,
@@ -36,13 +36,13 @@ router.post("/aditem/create", async function(req, res) {
   }
 });
 
-router.post("/aditem/delete", async function(req, res) {
+router.post("/aditem/delete", async(req, res) => {
   try {
-    var adItemIDsToDelete = req.body.ids;
+    const adItemIDsToDelete = req.body.ids;
     
     // Find campaignAssignments related to the ad item and delete it all
-    for (var i=0; i<adItemIDsToDelete.length; i+=1) {
-      var adItemID = adItemIDsToDelete[i];
+    for (let i=0; i<adItemIDsToDelete.length; i+=1) {
+      const adItemID = adItemIDsToDelete[i];
 
       await CampaignAssignment.delete({ "advertisement.id": adItemID });
       await AdItem.delete({ id: adItemID });
@@ -54,4 +54,4 @@ router.post("/aditem/delete", async function(req, res) {
   }
 });
 
-module.exports = router;
+export default router;

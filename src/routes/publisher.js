@@ -1,16 +1,16 @@
-var express = require("express");
+import express from "express";
 
-var Publisher = require("./../controllers/publisher");
-var Zone = require("./../controllers/zone");
-var Placement = require("./../controllers/placement");
-var Advertiser = require("./../controllers/advertiser");
+import Publisher from "./../controllers/publisher";
+import Zone from "./../controllers/zone";
+import Placement from "./../controllers/placement";
+import Advertiser from "./../controllers/advertiser";
 
-var router = express.Router();
+const router = express.Router();
 
-router.get("/publisher/list", async function(req, res, next) {
+router.get("/publisher/list", async(req, res, next) => {
   try {
-    var publishersAndZones = await Publisher.listAndZones({ });
-    var advertisersAndZones = await Advertiser.listAndCampaigns({ });
+    const publishersAndZones = await Publisher.listAndZones({ });
+    const advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
     return res.render("publisher/list", {
       publishers: publishersAndZones,
@@ -21,14 +21,14 @@ router.get("/publisher/list", async function(req, res, next) {
   }
 });
 
-router.get("/publisher/view", async function(req, res, next) {
+router.get("/publisher/view", async(req, res, next) => {
   try {
-    var publishersAndZones = await Publisher.listAndZones({ });
-    var advertisersAndZones = await Advertiser.listAndCampaigns({ });
+    const publishersAndZones = await Publisher.listAndZones({ });
+    const advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
-    var publisherID = parseInt(req.query.publisher_id);
-    var publisher = await Publisher.retrieve({ id: publisherID });
-    var zones = await Zone.listAndPlacements({ publisher: publisherID });
+    const publisherID = parseInt(req.query.publisher_id);
+    const publisher = await Publisher.retrieve({ id: publisherID });
+    const zones = await Zone.listAndPlacements({ publisher: publisherID });
 
     return res.render("publisher/view", {
       publishers: publishersAndZones,
@@ -41,9 +41,9 @@ router.get("/publisher/view", async function(req, res, next) {
   }
 });
 
-router.post("/publisher/create", async function(req, res) {
+router.post("/publisher/create", async(req, res) => {
   try {
-    var { name, domain } = req.body;
+    const { name, domain } = req.body;
 
     await Publisher.create({
       name: name,
@@ -56,19 +56,19 @@ router.post("/publisher/create", async function(req, res) {
   }
 });
 
-router.post("/publisher/delete", async function(req, res) {
+router.post("/publisher/delete", async(req, res) => {
   try {
-    var publisherIDsToDelete = req.body.ids;
+    const publisherIDsToDelete = req.body.ids;
 
-    for (var i=0; i<publisherIDsToDelete.length; i+=1) {
-      var publisherID = publisherIDsToDelete[i];
+    for (let i=0; i<publisherIDsToDelete.length; i+=1) {
+      const publisherID = publisherIDsToDelete[i];
       
       // Find zones related to the publisher and delete it all
-      var zones = await Zone.list({ publisher: publisherID });
+      const zones = await Zone.list({ publisher: publisherID });
 
       // Find placements related to the zone and delete it all
-      for (var t=0; t<zones.length; t+=1) {
-        var zoneID = zones[t].id;
+      for (let t=0; t<zones.length; t+=1) {
+        const zoneID = zones[t].id;
 
         await Placement.delete({ "zone.id": zoneID });
         await Zone.delete({ id: zoneID });
@@ -84,4 +84,4 @@ router.post("/publisher/delete", async function(req, res) {
   }
 });
 
-module.exports = router;
+export default router;

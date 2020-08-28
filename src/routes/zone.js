@@ -1,38 +1,38 @@
-var express = require("express");
+import express from "express";
 
-var Publisher = require("./../controllers/publisher");
-var Zone = require("./../controllers/zone");
-var Advertiser = require("./../controllers/advertiser");
-var Placement = require("./../controllers/placement");
-var Campaign = require("./../controllers/campaign");
-var CampaignAssignment = require("./../controllers/campaignAssignment");
-var AdItem = require("./../controllers/adItem");
-var Report = require("./../controllers/report");
+import Publisher from "./../controllers/publisher";
+import Zone from "./../controllers/zone";
+import Advertiser from "./../controllers/advertiser";
+import Placement from "./../controllers/placement";
+import Campaign from "./../controllers/campaign";
+import CampaignAssignment from "./../controllers/campaignAssignment";
+import AdItem from "./../controllers/adItem";
+import Report from "./../controllers/report";
 
-var router = express.Router();
+const router = express.Router();
 
-router.get("/zone/view", async function(req, res, next) {
+router.get("/zone/view", async(req, res, next) => {
   try {
-    var publishersAndZones = await Publisher.listAndZones({ });
-    var advertisersAndZones = await Advertiser.listAndCampaigns({ });
+    const publishersAndZones = await Publisher.listAndZones({ });
+    const advertisersAndZones = await Advertiser.listAndCampaigns({ });
 
-    var zoneID = parseInt(req.query.zone_id);
-    var zone = await Zone.retrieve({ id: zoneID });
-    var placements = await Placement.list({ "zone.id": zone.id });
-    var assignedCampaigns = [];
+    const zoneID = parseInt(req.query.zone_id);
+    const zone = await Zone.retrieve({ id: zoneID });
+    const placements = await Placement.list({ "zone.id": zone.id });
+    const assignedCampaigns = [];
     
-    for (var i=0; i<placements.length; i+=1) {
-      var placement = placements[i];
-      var campaign = await Campaign.retrieve({ id: placement.advertisement.id });
+    for (let i=0; i<placements.length; i+=1) {
+      const placement = placements[i];
+      const campaign = await Campaign.retrieve({ id: placement.advertisement.id });
 
       // Add total impressions regarding Placement
-      var reports = await Report.list({
+      const reports = await Report.list({
         placement: placement.id,
         "campaign.id": campaign.id
       });
 
-      var totalImpressions = 0;
-      for (var t=0; t<reports.length; t+=1) {
+      let totalImpressions = 0;
+      for (let t=0; t<reports.length; t+=1) {
         totalImpressions += reports[t].impressions;
       }
       campaign.total_impressions = totalImpressions;
@@ -51,12 +51,12 @@ router.get("/zone/view", async function(req, res, next) {
   }
 });
 
-router.post("/zone/create", async function(req, res) {
+router.post("/zone/create", async(req, res) => {
   try {
-    var publisherID = req.body.publisher_id;
-    var { name, size } = req.body;
-    var width = size.split("x")[0];
-    var height = size.split("x")[1];
+    const publisherID = req.body.publisher_id;
+    const { name, size } = req.body;
+    const width = size.split("x")[0];
+    const height = size.split("x")[1];
 
     await Zone.create({
       publisher: publisherID,
@@ -71,13 +71,13 @@ router.post("/zone/create", async function(req, res) {
   }
 });
 
-router.post("/zone/delete", async function(req, res) {
+router.post("/zone/delete", async(req, res) => {
   try {
-    var zoneIDsToDelete = req.body.ids;
+    const zoneIDsToDelete = req.body.ids;
 
     // Find placements related to the zone and delete it all
-    for (var i=0; i<zoneIDsToDelete.length; i+=1) {
-      var zoneID = zoneIDsToDelete[i];
+    for (let i=0; i<zoneIDsToDelete.length; i+=1) {
+      const zoneID = zoneIDsToDelete[i];
 
       await Placement.delete({ "zone.id": zoneID });
       await Zone.delete({ id: zoneID });
@@ -89,28 +89,28 @@ router.post("/zone/delete", async function(req, res) {
   }
 });
 
-router.post("/zone/campaign/assign", async function(req, res) {
+router.post("/zone/campaign/assign", async(req, res) => {
   try {
-    var zoneID = parseInt(req.body.zone_id);
-    var zone = await Zone.retrieve({ id: zoneID });
+    const zoneID = parseInt(req.body.zone_id);
+    const zone = await Zone.retrieve({ id: zoneID });
     
-    var campaigns = await Campaign.list({ });
-    var response = [];
+    const campaigns = await Campaign.list({ });
+    const response = [];
 
-    for (var i=0; i<campaigns.length; i+=1) {
-      var campaign = campaigns[i];
+    for (let i=0; i<campaigns.length; i+=1) {
+      const campaign = campaigns[i];
       campaign.eligible_ad_items = [];
 
-      var campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaign.id });
+      const campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaign.id });
 
-      for (var t=0; t<campaignAssignments.length; t+=1) {
-        var campaignAssignment = campaignAssignments[t];
-        var adItems = await AdItem.list({
+      for (let t=0; t<campaignAssignments.length; t+=1) {
+        const campaignAssignment = campaignAssignments[t];
+        const adItems = await AdItem.list({
           id: campaignAssignment.advertisement.id
         });
 
-        for (var z=0; z<adItems.length; z+=1) {
-          var adItem = adItems[z];
+        for (let z=0; z<adItems.length; z+=1) {
+          const adItem = adItems[z];
 
           if (zone.width === adItem.width && zone.height === adItem.height) {
             campaign.eligible_ad_items.push(adItem);
@@ -119,9 +119,9 @@ router.post("/zone/campaign/assign", async function(req, res) {
       }
     }
 
-    for (var i=0; i<campaigns.length; i+=1) {
-      var campaign = campaigns[i];
-      var advertiser = await Advertiser.retrieve({ id: campaign.advertiser });
+    for (let i=0; i<campaigns.length; i+=1) {
+      const campaign = campaigns[i];
+      const advertiser = await Advertiser.retrieve({ id: campaign.advertiser });
 
       response.push({
         id: campaign.id,
@@ -137,4 +137,4 @@ router.post("/zone/campaign/assign", async function(req, res) {
   }
 });
 
-module.exports = router;
+export default router;

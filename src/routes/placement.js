@@ -1,13 +1,13 @@
-var express = require("express");
+import express from "express";
 
-var Placement = require("./../controllers/placement");
+import Placement from "./../controllers/placement";
 
-var router = express.Router();
+const router = express.Router();
 
-router.post("/placement/create", async function(req, res) {
+router.post("/placement/create", async(req, res) => {
   try {
-    var zoneID = parseInt(req.body.zone_id);
-    var campaignID = parseInt(req.body.campaign_id);
+    const zoneID = parseInt(req.body.zone_id);
+    const campaignID = parseInt(req.body.campaign_id);
 
     await Placement.create({
       "zone.id": zoneID,
@@ -20,13 +20,13 @@ router.post("/placement/create", async function(req, res) {
   }
 });
 
-router.post("/placement/delete", async function(req, res) {
+router.post("/placement/delete", async(req, res) => {
   try {
-    var campaignIDs = req.body.ids;
-    var zoneID = req.body.zone_id;
+    const campaignIDs = req.body.ids;
+    const zoneID = req.body.zone_id;
 
-    for (var i=0; i<campaignIDs.length; i+=1) {
-      var campaignID = parseInt(campaignIDs[i]);
+    for (let i=0; i<campaignIDs.length; i+=1) {
+      const campaignID = parseInt(campaignIDs[i]);
       
       await Placement.delete({
         "zone.id": zoneID,
@@ -40,4 +40,4 @@ router.post("/placement/delete", async function(req, res) {
   }
 });
 
-module.exports = router;
+export default router;
