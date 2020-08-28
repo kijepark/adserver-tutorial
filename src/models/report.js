@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-var schema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   placement: {
     type: Number,
     default: 0,
@@ -59,4 +59,4 @@ var schema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("report", schema);
+export default mongoose.model("report", schema);

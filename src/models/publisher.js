@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-var schema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   id: {
     type: Number,
     default: 0,
@@ -30,4 +30,4 @@ schema.plugin(mongooseSequence, {
   collection_name: "ids"
 });
 
-module.exports = mongoose.model("publisher", schema);
+export default mongoose.model("publisher", schema);
