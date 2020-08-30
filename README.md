@@ -192,5 +192,6 @@ router.get("/redirect", async function(req, res) {
 $ git clone https://github.com/kijepark/adserver-tutorial.git
 $ cd adserver-tutorial
 $ npm install
-$ npm start
+$ npm run build
+$ npm run start
 ```
