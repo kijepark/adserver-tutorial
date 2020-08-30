@@ -73,11 +73,11 @@ router.post("/zone/create", async(req, res) => {
 
 router.post("/zone/delete", async(req, res) => {
   try {
-    const zoneIDsToDelete = req.body.ids;
+    const zoneIDs = req.body.ids;
 
     // Find placements related to the zone and delete it all
-    for (let i=0; i<zoneIDsToDelete.length; i+=1) {
-      const zoneID = zoneIDsToDelete[i];
+    for (let i=0; i<zoneIDs.length; i+=1) {
+      const zoneID = zoneIDs[i];
 
       await Placement.delete({ "zone.id": zoneID });
       await Zone.delete({ id: zoneID });

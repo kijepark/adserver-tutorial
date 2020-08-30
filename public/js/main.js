@@ -100,7 +100,7 @@ var publisherDeleteButton = document.getElementById("publisher-delete-button");
 if (publisherDeleteButton) {
   publisherDeleteButton.addEventListener("click", function() {
     var checkboxes = document.getElementsByClassName("uk-checkbox");
-    var publisherIDsToDelete = [];
+    var publisherIDs = [];
 
     for (var i=0; i<checkboxes.length; i+=1) {
       var checkbox = checkboxes[i];
@@ -109,17 +109,15 @@ if (publisherDeleteButton) {
         var row = checkbox.parentNode.parentNode;
         var zoneID = parseInt(row.getAttribute("data-publisher-id"));
 
-        publisherIDsToDelete.push(zoneID);
+        publisherIDs.push(zoneID);
       }
     }
-
-    console.log("publisherIDsToDelete:", publisherIDsToDelete);
 
     $.ajax({
       method: "POST",
       url: "/publisher/delete",
       data: {
-        ids: publisherIDsToDelete
+        ids: publisherIDs
       },
       success: function(data, status, xhr) {
         return window.location.reload();
@@ -161,7 +159,7 @@ var zoneDeleteButton = document.getElementById("zone-delete-button");
 if (zoneDeleteButton) {
   zoneDeleteButton.addEventListener("click", function() {
     var checkboxes = document.getElementsByClassName("uk-checkbox");
-    var zoneIDsToDelete = [];
+    var zoneIDs = [];
 
     for (var i=0; i<checkboxes.length; i+=1) {
       var checkbox = checkboxes[i];
@@ -170,7 +168,7 @@ if (zoneDeleteButton) {
         var row = checkbox.parentNode.parentNode;
         var zoneID = parseInt(row.getAttribute("data-zone-id"));
 
-        zoneIDsToDelete.push(zoneID);
+        zoneIDs.push(zoneID);
       }
     }
 
@@ -178,7 +176,7 @@ if (zoneDeleteButton) {
       method: "POST",
       url: "/zone/delete",
       data: {
-        ids: zoneIDsToDelete
+        ids: zoneIDs
       },
       success: function(data, status, xhr) {
         return window.location.reload();
@@ -215,7 +213,7 @@ var advertiserDeleteButton = document.getElementById("advertiser-delete-button")
 if (advertiserDeleteButton) {
   advertiserDeleteButton.addEventListener("click", function() {
     var checkboxes = document.getElementsByClassName("uk-checkbox");
-    var advertiserIDsToDelete = [];
+    var advertiserIDs = [];
 
     for (var i=0; i<checkboxes.length; i+=1) {
       var checkbox = checkboxes[i];
@@ -224,7 +222,7 @@ if (advertiserDeleteButton) {
         var row = checkbox.parentNode.parentNode;
         var advertiserID = parseInt(row.getAttribute("data-advertiser-id"));
 
-        advertiserIDsToDelete.push(advertiserID);
+        advertiserIDs.push(advertiserID);
       }
     }
 
@@ -232,7 +230,7 @@ if (advertiserDeleteButton) {
       method: "POST",
       url: "/advertiser/delete",
       data: {
-        ids: advertiserIDsToDelete
+        ids: advertiserIDs
       },
       success: function(data, status, xhr) {
         return window.location.reload();
@@ -271,7 +269,7 @@ var campaignDeleteButton = document.getElementById("campaign-delete-button");
 if (campaignDeleteButton) {
   campaignDeleteButton.addEventListener("click", function() {
     var checkboxes = document.getElementsByClassName("uk-checkbox");
-    var campaignIDsToDelete = [];
+    var campaignIDs = [];
 
     for (var i=0; i<checkboxes.length; i+=1) {
       var checkbox = checkboxes[i];
@@ -280,7 +278,7 @@ if (campaignDeleteButton) {
         var row = checkbox.parentNode.parentNode;
         var campaignID = parseInt(row.getAttribute("data-campaign-id"));
 
-        campaignIDsToDelete.push(campaignID);
+        campaignIDs.push(campaignID);
       }
     }
 
@@ -288,7 +286,7 @@ if (campaignDeleteButton) {
       method: "POST",
       url: "/campaign/delete",
       data: {
-        ids: campaignIDsToDelete
+        ids: campaignIDs
       },
       success: function(data, status, xhr) {
         return window.location.reload();
@@ -364,7 +362,7 @@ if (campaignAssignDeleteButton) {
     var zoneID = new URLSearchParams(window.location.search).get("zone_id");
     var campaignAssignList = document.getElementById("campaign-assigned-list");
     var checkboxes = campaignAssignList.getElementsByClassName("uk-checkbox");
-    var campaignIDsToDelete = [];
+    var campaignIDs = [];
 
     for (var i=0; i<checkboxes.length; i+=1) {
       var checkbox = checkboxes[i];
@@ -373,7 +371,7 @@ if (campaignAssignDeleteButton) {
         var tr = checkbox.parentNode.parentNode;
         var campaignID = parseInt(tr.getAttribute("data-campaign-id"));
 
-        campaignIDsToDelete.push(campaignID);
+        campaignIDs.push(campaignID);
       }
     }
 
@@ -382,7 +380,7 @@ if (campaignAssignDeleteButton) {
       url: "/placement/delete",
       data: {
         zone_id: zoneID,
-        ids: campaignIDsToDelete
+        ids: campaignIDs
       },
       success: function(data, status, xhr) {
         return window.location.reload();
@@ -434,7 +432,7 @@ var adItemDeleteButton = document.getElementById("ad-item-delete-button");
 if (adItemDeleteButton) {
   adItemDeleteButton.addEventListener("click", function() {
     var checkboxes = document.querySelectorAll("#ad-item-list .uk-checkbox");
-    var adItemIDsToDelete = [];
+    var adItemIDs = [];
 
     for (var i=0; i<checkboxes.length; i+=1) {
       var checkbox = checkboxes[i];
@@ -443,7 +441,7 @@ if (adItemDeleteButton) {
         var row = checkbox.parentNode.parentNode;
         var adItemID = parseInt(row.getAttribute("data-ad-item-id"));
 
-        adItemIDsToDelete.push(adItemID);
+        adItemIDs.push(adItemID);
       }
     }
 
@@ -451,7 +449,7 @@ if (adItemDeleteButton) {
       method: "POST",
       url: "/aditem/delete",
       data: {
-        ids: adItemIDsToDelete
+        ids: adItemIDs
       },
       success: function(data, status, xhr) {
         return window.location.reload();

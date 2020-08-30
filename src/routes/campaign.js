@@ -100,11 +100,11 @@ router.post("/campaign/create", async(req, res) => {
 
 router.post("/campaign/delete", async(req, res) => {
   try {
-    const campaignIDsToDelete = req.body.ids;
+    const campaignIDs = req.body.ids;
 
-    for (let i=0; i<campaignIDsToDelete.length; i+=1) {
+    for (let i=0; i<campaignIDs.length; i+=1) {
       // Find ad campaignAssignments related to the campaign and find ad items
-      const campaignID = campaignIDsToDelete[i];
+      const campaignID = campaignIDs[i];
       const campaignAssignments = await CampaignAssignment.list({ "campaign.id": campaignID });
       
       for (let t=0; t<campaignAssignments.length; t+=1) {

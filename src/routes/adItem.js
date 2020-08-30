@@ -38,11 +38,11 @@ router.post("/aditem/create", async(req, res) => {
 
 router.post("/aditem/delete", async(req, res) => {
   try {
-    const adItemIDsToDelete = req.body.ids;
+    const adItemIDs = req.body.ids;
     
     // Find campaignAssignments related to the ad item and delete it all
-    for (let i=0; i<adItemIDsToDelete.length; i+=1) {
-      const adItemID = adItemIDsToDelete[i];
+    for (let i=0; i<adItemIDs.length; i+=1) {
+      const adItemID = adItemIDs[i];
 
       await CampaignAssignment.delete({ "advertisement.id": adItemID });
       await AdItem.delete({ id: adItemID });

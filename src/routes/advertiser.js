@@ -59,10 +59,10 @@ router.post("/advertiser/create", async(req, res) => {
 
 router.post("/advertiser/delete", async(req, res) => {
   try {
-    const advertiserIDsToDelete = req.body.ids;
+    const advertiserIDs = req.body.ids;
 
-    for (let i=0; i<advertiserIDsToDelete.length; i+=1) {
-      const advertiserID = advertiserIDsToDelete[i];
+    for (let i=0; i<advertiserIDs.length; i+=1) {
+      const advertiserID = advertiserIDs[i];
       const campaigns = await Campaign.list({ advertiser: advertiserID });
 
       for (let c=0; c<campaigns.length; c+=1) {

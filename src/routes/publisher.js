@@ -58,10 +58,10 @@ router.post("/publisher/create", async(req, res) => {
 
 router.post("/publisher/delete", async(req, res) => {
   try {
-    const publisherIDsToDelete = req.body.ids;
+    const publisherIDs = req.body.ids;
 
-    for (let i=0; i<publisherIDsToDelete.length; i+=1) {
-      const publisherID = publisherIDsToDelete[i];
+    for (let i=0; i<publisherIDs.length; i+=1) {
+      const publisherID = publisherIDs[i];
       
       // Find zones related to the publisher and delete it all
       const zones = await Zone.list({ publisher: publisherID });
