@@ -21,6 +21,7 @@
  * 8. Placement from Advertiser 
  * - create
  * - delete
+ * 9. Chart
  */
 
 // 1. Get Zone Tags
@@ -549,5 +550,81 @@ if (zoneAssignDeleteButton) {
         return window.location.reload();
       }
     });
+  });
+}
+
+// 9. Chart
+var chart = document.getElementById("chart");
+
+if (chart) {
+  var reports = JSON.parse(reports.replace(/&quot;/g, '"'));
+  var ctx = chart.getContext("2d");
+  
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: reports.labels,
+      datasets: [{
+        label: "impressions",
+        data: reports.impressions,
+        backgroundColor: 'rgb(225,233,240,0.3)',
+        borderColor: 'rgba(205,215,223,0.7)',
+        pointBorderColor: "rgba(205,215,223)",
+        pointBackgroundColor: "rgba(205,215,223)",
+        pointBorderWidth: 3,
+        borderWidth: 1
+      },{
+        label: "clicks",
+        data: reports.clicks,
+        backgroundColor: 'rgba(232,230,255,0.2)',
+        borderColor: 'rgba(198,192,255,0.7)',
+        pointBorderColor: "rgba(198,192,255)",
+        pointBackgroundColor: "rgba(198,192,255)",
+        pointBorderWidth: 3,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      legend: {
+        display: true,
+        position: "top",
+        align: "start"
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            fontSize: '11',
+            fontColor: '#969da5'
+          },
+          gridLines: {
+            color: 'rgba(0,0,0,0.05)',
+            zeroLineColor: 'rgba(0,0,0,0.05)'
+          }
+        }],
+        yAxes: [{
+          id: "A",
+          display: true,
+          position: "left",
+          ticks: {
+            beginAtZero: true,
+            stepSize: 500
+          },
+          gridLines: {
+            display: true
+          }
+        },{
+          id: "B",
+          display: true,
+          position: "right",
+          ticks: {
+            beginAtZero: true,
+            stepSize: 500
+          },
+          gridLines: {
+            display: false
+          }
+        }]
+      }
+    }
   });
 }
