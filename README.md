@@ -143,7 +143,7 @@ router.get("/redirect", async function(req, res) {
 
 ## 구현 예정 기능  
 
-#### Conversion Tracking -
+#### 전환 추적(Conversion Tracking) -
 
 수집할 수 있는 통곗값은 노출수와 클릭수 그리고 전환(conversion)의 개념이 있습니다.  
 전환의 의미는 다양하게 정의될 수 있습니다. 고객의 회원가입이 전환일 수도 있고, 뉴스레터 구독이 될 수도 있습니다.  
@@ -155,31 +155,31 @@ router.get("/redirect", async function(req, res) {
 *예시: ```<img src="http://localhost/convert/track?ad_item_id=${AD_ITEM_ID}" />;```*  
 위 예시는 이미지 태그를 삽입하여 광고물(ad item)의 전환수를 수집할 수 있습니다.  
 
-#### A/B Testing -  
+#### A/B 테스트 (A/B Testing) -  
 
 광고 캠페인 내에서 두 개의 광고를 비교하여 응답률이 낮은 광고를 다른 광고로 자동으로 치환합니다.
 
-#### Geographic Targeting -  
+#### 지역 타겟팅(Geographic Targeting) -  
 
 광고 캠페인이 특정 나라나 지역에 송출됩니다.  
 
-#### Behavioral Targeting -  
+#### 행동 타겟팅(Behavioral Targeting) -  
 
 광고 캠페인이 특정 고객의 행동을 기반으로 송출됩니다.  
 
-#### Keywords Targeting -  
+#### 키워드 타겟팅(Keywords Targeting) -  
 
 광고 캠페인이 특정 키워드를 포함한 웹사이트에 송출됩니다.   
 
-#### Retargeitng/Remarketing -  
+#### 리타겟팅(Retargeitng) -  
 
 광고 캠페인이 고객이 방문한 웹사이트의 데이터를 기반으로 노출되는 것
 
-#### Cross-Device Advertising -  
+#### 교차 기기 광고(Cross-Device Advertising) -  
 
 광고 캠페인이 디바이스를 공유하며 노출되는 것  
 
-#### Cross-Channel Advertising -  
+#### 교차 채널 광고(Cross-Channel Advertising) -  
 
 광고 캠페인이 웹사이트, 이메일, 뉴스레터등 채널을 공유하며 노출되는 것  
 
