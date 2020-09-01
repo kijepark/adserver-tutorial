@@ -186,7 +186,9 @@ router.get("/redirect", async function(req, res) {
 ## 시작하기  
 
 *이 광고 서버는 데이터베이스 MongoDB를 사용하고 있습니다*  
-*시작하기 전 MongoDB가 Localhost에 설치되어 있는지 확인해주세요!*
+*시작하기 전 MongoDB가 Localhost에 설치되어 있는지 확인해주세요!*. 
+
+- MongoDB v4.2.1
 
 ```bash
 $ git clone https://github.com/kijepark/adserver-tutorial.git
