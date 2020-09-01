@@ -171,7 +171,7 @@ Ad campaigns are served based on specific audience behavior.
 
 Ad campaigns are served to websites containing specific keywords.  
 
-#### Retargeitng -  
+#### Retargeting -  
 
 Ad campaigns are served based on data from websites visited by audience.
 
