@@ -1,5 +1,4 @@
 <h1 align="center">
-<img width="40" valign="bottom" src="https://image.flaticon.com/icons/svg/2165/2165703.svg">
 Ad Server Development Guide
 </h1>
 <h5 align="center"> From A to Z of the ad sever, the guide explains how it works from planning to operation. </h5>  
