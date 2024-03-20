@@ -1,5 +1,4 @@
 <h1 align="center">
-<img width="40" valign="bottom" src="https://image.flaticon.com/icons/svg/2165/2165703.svg">
 광고 서버 개발 가이드
 </h1>
 <h5 align="center"> 광고 서버의 하나부터 열까지 기획부터 동작 방식까지 설명합니다. </h5>
